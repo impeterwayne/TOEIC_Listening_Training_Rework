@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/ic_facebook.xml" value="0.1225" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/ic_google.xml" value="0.1225" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/fragment_practice.xml" value="0.26313405797101447" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/menu/bottom_main_menu.xml" value="0.27447916666666666" />
+        <entry key="app/src/main/res/drawable/bg_button.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/bg_right_answer.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/bg_wrong_answer.xml" value="0.2005" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/activity_part_one.xml" value="0.3609022556390977" />
+        <entry key="app/src/main/res/layout/activity_training.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/bottomsheet_audio_training.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_part_one.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_part_three.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/fragment_part_two.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_practice.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/item_category.xml" value="0.3697916666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

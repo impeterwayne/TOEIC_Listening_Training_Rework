@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "398406277438",
+    "project_id": "toeic-training-offical",
+    "storage_bucket": "toeic-training-offical.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398406277438:android:355b818f8a3443edfb346f",
+        "android_client_info": {
+          "package_name": "com.example.a900toeic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398406277438-ns6ckuqbtuhant87jh47ljsk8c72j6ts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.a900toeic",
+            "certificate_hash": "b684d74bbd0157ad4a0c6107a437a75370863278"
+          }
+        },
+        {
+          "client_id": "398406277438-rph7oecg8p059m1pb528fb45vo8u16ar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCssgamNwpttLFlVcSHuNVyjeonmeWzjfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398406277438-rph7oecg8p059m1pb528fb45vo8u16ar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

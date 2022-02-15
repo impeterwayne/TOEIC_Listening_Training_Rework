@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:cardCornerRadius="30dp"
+        android:layout_margin="8dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/txt_cat_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Part 1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txt_cat_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="choose the right answer"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_cat_name"/>
+            <ImageView
+                android:id="@+id/img_cat_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_part1"
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
