@@ -3,26 +3,87 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.137" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/bg_indicator.xml" value="0.222" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/ic_facebook.xml" value="0.1225" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/ic_google.xml" value="0.1225" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/drawable/ic_launcher_background.xml" value="0.241" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_first_installation.xml" value="0.22573749465583584" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/activity_training.xml" value="0.22573749465583584" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/fragment_part_one.xml" value="0.22573749465583584" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/fragment_part_two.xml" value="0.22573749465583584" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/layout/fragment_practice.xml" value="0.26313405797101447" />
         <entry key="..\:/Android/900TOEIC/app/src/main/res/menu/bottom_main_menu.xml" value="0.27447916666666666" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.137" />
+        <entry key="..\:/Android/900TOEIC/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/bg_button_variant.xml" value="0.219" />
+        <entry key="app/src/main/res/drawable/bg_circle_green.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/bg_circle_green_fade.xml" value="0.1795" />
+        <entry key="app/src/main/res/drawable/bg_circle_red.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_cirle_black.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_cirle_green.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_cirle_grey.xml" value="0.1795" />
+        <entry key="app/src/main/res/drawable/bg_dialog_corner_16.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_gradient_chart.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/bg_right_answer.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/bg_text_category.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/bg_wrong_answer.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/ic_account.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/ic_backward_black.xml" value="0.206" />
+        <entry key="app/src/main/res/drawable/ic_backward_forward.xml" value="0.206" />
+        <entry key="app/src/main/res/drawable/ic_bookmark_black.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_bookmarked_black.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_facebook.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_forward_black.xml" value="0.206" />
+        <entry key="app/src/main/res/drawable/ic_pause.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_pause_black.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_play_black.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_practice.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/ic_test.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/sl_bottom_navigation.xml" value="0.2205" />
+        <entry key="app/src/main/res/drawable/sl_bottomnavigation.xml" value="0.194" />
+        <entry key="app/src/main/res/font/cabin.xml" value="0.32418742085268043" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/activity_part_one.xml" value="0.3609022556390977" />
+        <entry key="app/src/main/res/layout/activity_real_test.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_result.xml" value="0.2846781504986401" />
         <entry key="app/src/main/res/layout/activity_training.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/bottomsheet_audio_training.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/bottomsheet_script.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/dialog_answer.xml" value="0.30183839247541683" />
+        <entry key="app/src/main/res/layout/dialog_confirm_realtest.xml" value="0.28603807796917496" />
+        <entry key="app/src/main/res/layout/dialog_script_part_one.xml" value="0.30183839247541683" />
+        <entry key="app/src/main/res/layout/dialog_script_part_two.xml" value="0.17528858486532706" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_empty_review.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_part_four.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/fragment_part_one.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/fragment_part_three.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/fragment_part_two.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/fragment_practice.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_real_test.xml" value="0.2971014492753623" />
+        <entry key="app/src/main/res/layout/fragment_review.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/item_answer.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/item_part1.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_part1_result.xml" value="0.15476699444206926" />
+        <entry key="app/src/main/res/layout/item_part1_test.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/item_part2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_part2_result.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/item_part2_test.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/item_part3.xml" value="0.2973708068902992" />
+        <entry key="app/src/main/res/layout/item_part34.xml" value="0.2973708068902992" />
+        <entry key="app/src/main/res/layout/item_part34_result.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/item_part34_test.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/item_test.xml" value="0.2971014492753623" />
+        <entry key="app/src/main/res/layout/label_chart.xml" value="0.27969174977334543" />
+        <entry key="app/src/main/res/layout/layout_content_training.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/menu/bottom_main_menu.xml" value="0.30354852501068835" />
       </map>
     </option>
   </component>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:gravity="center_vertical"
-    android:background="@color/primary">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_script_dialog"
+        android:textAlignment="textStart"
+        android:padding="24dp"
+        android:textStyle="bold|italic"
+        android:textColor="@color/text_key"
+        android:textSize="16sp" />
 
 </LinearLayout>

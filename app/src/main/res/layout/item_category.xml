@@ -2,39 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
-        app:cardCornerRadius="30dp"
-        android:layout_margin="8dp">
+        app:cardCornerRadius="12dp"
+        android:layout_margin="4dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="12dp"
+            android:background="@color/white">
+
             <TextView
                 android:id="@+id/txt_cat_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="4dp"
                 android:text="Part 1"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txt_cat_description"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:paddingHorizontal="4dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txt_cat_name"
+                android:paddingVertical="2dp"
                 android:text="choose the right answer"
+                android:background="@drawable/bg_text_category"
+                android:textColor="@color/white"
                 android:textStyle="italic"
-                android:textSize="15sp"
-                android:layout_below="@id/txt_cat_name"/>
+                android:textSize="10sp" />
             <ImageView
                 android:id="@+id/img_cat_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_part1"

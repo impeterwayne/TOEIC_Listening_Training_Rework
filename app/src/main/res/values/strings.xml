@@ -17,6 +17,23 @@
     <string name="keyB">(B)</string>
     <string name="keyC">(C)</string>
     <string name="keyD">(D)</string>
-
+    <string name="show_script">Show Script</string>
+    <string name="part1">Part One</string>
+    <string name="part2">Part Two</string>
+    <string name="part3">Part Three</string>
+    <string name="part4">Part Four</string>
+    <string name="part1_training">Part One Training</string>
+    <string name="part2_training">Part Two Training</string>
+    <string name="part3_training">Part Three Training</string>
+    <string name="part4_training">Part Four Training</string>
+    <string name="choose_part_to_review">Choose the part to review</string>
+    <string name="review_saved_question">Review Questions</string>
+    <string name="no_question">There is no question to review</string>
+    <string name="real_test">Taking Real Tests</string>
+    <string name="submit">SUBMIT</string>
+    <string name="statistic_title">Progress</string>
+    <string name="result">Result</string>
+    <string name="logout">Log out</string>
+    <string name="view_answer">View Script</string>
 
 </resources>

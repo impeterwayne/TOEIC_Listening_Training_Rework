@@ -15,6 +15,4 @@
     <item android:id="@+id/nav_account"
         android:title="@string/account"
         android:icon="@drawable/ic_account"></item>
-
-
 </menu>
