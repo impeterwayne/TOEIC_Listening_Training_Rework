@@ -21,9 +21,6 @@
             android:name="com.peterwayne.toeic900.Activity.FirstInstallationActivity"
             android:exported="false" />
         <activity
-            android:name="com.peterwayne.toeic900.Activity.ResultActivity"
-            android:exported="false" />
-        <activity
             android:name="com.peterwayne.toeic900.Activity.RealTestActivity"
             android:exported="false" />
         <activity

@@ -67,6 +67,7 @@
         <entry key="app/src/main/res/layout/fragment_practice.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/fragment_real_test.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/fragment_review.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_rt_part_one.xml" value="0.17528858486532706" />
         <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/item_answer.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.3697916666666667" />
@@ -83,6 +84,7 @@
         <entry key="app/src/main/res/layout/item_test.xml" value="0.2971014492753623" />
         <entry key="app/src/main/res/layout/label_chart.xml" value="0.27969174977334543" />
         <entry key="app/src/main/res/layout/layout_content_training.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/nav_questions.xml" value="0.17528858486532706" />
         <entry key="app/src/main/res/menu/bottom_main_menu.xml" value="0.30354852501068835" />
       </map>
     </option>
