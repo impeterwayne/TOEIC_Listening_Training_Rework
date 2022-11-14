@@ -23,7 +23,7 @@ public class TestPartOneFragment extends PartOneFragment {
                 answer.setKeyChoosed(keyButtonsMap.get(btnKeyClick));
             }
             int position =answerList.indexOf(answer);
-            ((RealTestActivity) getActivity()).getAnswerMapAdapter().notifyItemChanged(position);
+            ((RealTestActivity) getActivity()).getAnswerSheetAdapter().notifyItemChanged(position);
         }
     }
     @Override
