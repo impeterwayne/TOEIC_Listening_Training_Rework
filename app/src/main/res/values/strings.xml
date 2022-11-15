@@ -30,7 +30,7 @@
     <string name="review_saved_question">Review Questions</string>
     <string name="no_question">There is no question to review</string>
     <string name="real_test">Taking Real Tests</string>
-    <string name="submit">SUBMIT</string>
+    <string name="submit">Submit</string>
     <string name="statistic_title">Progress</string>
     <string name="result">Result</string>
     <string name="logout">Log out</string>

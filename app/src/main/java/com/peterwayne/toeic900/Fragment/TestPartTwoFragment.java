@@ -1,6 +1,13 @@
 package com.peterwayne.toeic900.Fragment;
 
+import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_CHOOSED;
+import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_FADE;
+
+import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import com.peterwayne.toeic900.Activity.RealTestActivity;
 import com.peterwayne.toeic900.Model.Answer;
@@ -8,6 +15,16 @@ import com.peterwayne.toeic900.Model.Answer;
 import java.util.List;
 
 public class TestPartTwoFragment extends PartTwoFragment{
+    private String chosenKey;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if(savedInstanceState!=null)
+        {
+            chosenKey = savedInstanceState.getString("chosenKey");
+        }
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     protected void addEvents(View view) {
         super.addEvents(view);
@@ -36,9 +53,36 @@ public class TestPartTwoFragment extends PartTwoFragment{
         {
             if(key != btnKeyClick)
             {
-                key.setAlpha(0.3f);
+                key.setAlpha(ANSWER_STATE_FADE);
             }
-            btnKeyClick.setAlpha(1.0f);
+        }
+        btnKeyClick.setAlpha(ANSWER_STATE_CHOOSED);
+    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        for(AppCompatButton key : keyButtonsMap.keySet())
+        {
+            if(key.getAlpha()==ANSWER_STATE_CHOOSED)
+            {
+                outState.putString("chosenKey", keyButtonsMap.get(key));
+            }
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        for(AppCompatButton key : keyButtonsMap.keySet())
+        {
+            if(chosenKey!=null)
+            {
+                if(!chosenKey.equals(keyButtonsMap.get(key))) {
+                    key.setAlpha(ANSWER_STATE_FADE);
+                }else
+                {
+                    key.setAlpha(ANSWER_STATE_CHOOSED);
+                }
+            }
         }
     }
 }

@@ -3,7 +3,9 @@ package com.peterwayne.toeic900.Adapter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import com.peterwayne.toeic900.Fragment.PartOneFragment;
 import com.peterwayne.toeic900.Fragment.TestPartOneFragment;
@@ -50,4 +52,5 @@ public class RealTestAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return data.size();
     }
+
 }

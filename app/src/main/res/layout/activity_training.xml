@@ -183,12 +183,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
+
     <RelativeLayout
-        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp">
 
         <ImageView
             android:id="@+id/btn_next_question"
@@ -205,15 +206,16 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
             android:src="@drawable/ic_previous" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_show_script"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_centerInParent="true"
             android:background="@drawable/bg_button_variant"
-            android:textColor="@color/white"
             android:paddingHorizontal="8dp"
             android:text="@string/view_answer"
-            android:visibility="gone"/>
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

@@ -98,6 +98,7 @@ public class RealTestActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        testPager.setOffscreenPageLimit(2);
         btn_prev_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +147,7 @@ public class RealTestActivity extends AppCompatActivity {
                 }
             }
         });
-        testPager.setOffscreenPageLimit(2);
+
     }
 
     private void addControls() {
