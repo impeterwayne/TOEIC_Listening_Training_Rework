@@ -75,7 +75,6 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
                     }
                 }
                 getContext().startActivity(intent);
-                ((Activity) getContext()).finish();
             }
         });
         return view;

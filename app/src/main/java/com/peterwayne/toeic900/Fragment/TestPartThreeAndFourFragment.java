@@ -1,6 +1,6 @@
 package com.peterwayne.toeic900.Fragment;
 
-import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_CHOOSED;
+import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_CHOSEN;
 import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_FADE;
 
 import android.os.Bundle;
@@ -60,21 +60,21 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
         super.onSaveInstanceState(outState);
         for(AppCompatButton key : keyButtonsMap1.keySet())
         {
-            if(key.getAlpha()==ANSWER_STATE_CHOOSED)
+            if(key.getAlpha()== ANSWER_STATE_CHOSEN)
             {
                 outState.putString("chosenKey1", keyButtonsMap1.get(key));
             }
         }
         for(AppCompatButton key : keyButtonsMap2.keySet())
         {
-            if(key.getAlpha()==ANSWER_STATE_CHOOSED)
+            if(key.getAlpha()== ANSWER_STATE_CHOSEN)
             {
                 outState.putString("chosenKey2", keyButtonsMap2.get(key));
             }
         }
         for(AppCompatButton key : keyButtonsMap3.keySet())
         {
-            if(key.getAlpha()==ANSWER_STATE_CHOOSED)
+            if(key.getAlpha()== ANSWER_STATE_CHOSEN)
             {
                 outState.putString("chosenKey3", keyButtonsMap3.get(key));
             }
@@ -85,7 +85,7 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
     protected void updateUI(final AppCompatButton key,
                             final HashMap<AppCompatButton, String> keyMap,
                             final String correctKey) {
-        key.setAlpha(ANSWER_STATE_CHOOSED);
+        key.setAlpha(ANSWER_STATE_CHOSEN);
         for(AppCompatButton keyButton : keyMap.keySet())
         {
             if(keyButton!=key)
@@ -106,7 +106,7 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
                     key.setAlpha(ANSWER_STATE_FADE);
                 }else
                 {
-                    key.setAlpha(ANSWER_STATE_CHOOSED);
+                    key.setAlpha(ANSWER_STATE_CHOSEN);
                 }
             }
         }
@@ -118,7 +118,7 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
                     key.setAlpha(ANSWER_STATE_FADE);
                 }else
                 {
-                    key.setAlpha(ANSWER_STATE_CHOOSED);
+                    key.setAlpha(ANSWER_STATE_CHOSEN);
                 }
             }
         }
@@ -130,7 +130,7 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
                     key.setAlpha(ANSWER_STATE_FADE);
                 }else
                 {
-                    key.setAlpha(ANSWER_STATE_CHOOSED);
+                    key.setAlpha(ANSWER_STATE_CHOSEN);
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.peterwayne.toeic900.Activity;
 
 import static com.peterwayne.toeic900.Utils.Utils.getTimeString;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -42,6 +44,7 @@ public class RealTestActivity extends AppCompatActivity {
     private ImageView btn_question_navigation, btn_play,btn_prev_question, btn_next_question;
     private DrawerLayout drawer_layout;
     private Slider slider;
+    private Toolbar toolbar;
     private NavigationView nav_questions;
     private MediaPlayer mediaPlayer;
     private Runnable runnable;
@@ -147,11 +150,24 @@ public class RealTestActivity extends AppCompatActivity {
                 }
             }
         });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mediaPlayer!=null)
+                {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                }
+                handler.removeCallbacks(runnable);
+                finish();
+            }
+        });
 
     }
 
     private void addControls() {
         drawer_layout = findViewById(R.id.drawer_layout);
+        toolbar = findViewById(R.id.toolbar);
         nav_questions = findViewById(R.id.nav_questions);
         txt_toolbar_title = findViewById(R.id.txt_toolbar_title);
         txt_timestamp = findViewById(R.id.txt_timestamp);
@@ -161,9 +177,9 @@ public class RealTestActivity extends AppCompatActivity {
         btn_prev_question = findViewById(R.id.btn_prev_question);
         btn_next_question = findViewById(R.id.btn_next_question);
         slider = findViewById(R.id.slider);
-        handler = new Handler();
         headerLayout = nav_questions.getHeaderView(0);
         rcv_test_answer = headerLayout.findViewById(R.id.rcv_test_answer);
+        handler = new Handler();
 
     }
     private void updateToolbarTitle()
@@ -214,16 +230,22 @@ public class RealTestActivity extends AppCompatActivity {
                     }else {
                         btn_play.setImageResource(R.drawable.ic_play);
                     }
+                    updateMediaTimeRemaining();
+                    updateSliderProgress();
                 }catch (Exception ex)
                 {
                     ex.printStackTrace();
                 }
-                updateSliderProgress();
+
             };
             handler.postDelayed(runnable, 200);
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void updateMediaTimeRemaining() {
+        long timeRemain = mediaPlayer.getDuration()- mediaPlayer.getCurrentPosition();
+        txt_timestamp.setText(Utils.getTimeString(timeRemain));
     }
 
     public ViewPager2 getTestPager() {

@@ -6,7 +6,6 @@ import static com.peterwayne.toeic900.Utils.Utils.ID_PART_TWO_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.PART_ID;
 import static com.peterwayne.toeic900.Utils.Utils.getTimeString;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -31,7 +30,6 @@ import com.peterwayne.toeic900.Adapter.TrainingPartOneAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartThreeAndFourAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartTwoAdapter;
 import com.peterwayne.toeic900.Database.DBQuery;
-import com.peterwayne.toeic900.LocalData.DataLocalManager;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
@@ -91,8 +89,9 @@ public class TrainingActivity extends AppCompatActivity {
                 {
                     mediaPlayer.stop();
                     mediaPlayer.release();
+
                 }
-                startActivity(new Intent(TrainingActivity.this, MainActivity.class));
+                handler.removeCallbacks(runnable);
                 finish();
             }
         });
@@ -141,7 +140,7 @@ public class TrainingActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     super.onPageSelected(position);
-                    updateQuestionNavigationUI(position);
+                    updatePagerNavigationUI(position);
                     updateQuestionNumberUI(position);
                     updateShowScriptButtonVisibility(position);
                     playAudioFile(data,position);
@@ -164,7 +163,7 @@ public class TrainingActivity extends AppCompatActivity {
                     }
                 }
 
-                private void updateQuestionNavigationUI(final int position) {
+                private void updatePagerNavigationUI(final int position) {
                     if(position==0) btn_prev_question.setVisibility(View.GONE);
                     if(position==data.size()-1) btn_next_question.setVisibility(View.GONE);
                     if(position>0) btn_prev_question.setVisibility(View.VISIBLE);
@@ -262,7 +261,7 @@ public class TrainingActivity extends AppCompatActivity {
         switch(partId)
         {
             case ID_PART_ONE_TRAINING:
-                DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartOne(testList, data -> {
+                DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartOne(TrainingActivity.this, testList, data -> {
                     loadUI(ID_PART_ONE_TRAINING);
                     TrainingPartOneAdapter mTrainingPartOneAdapter = new TrainingPartOneAdapter(TrainingActivity.this, data);
                     mViewPager.setAdapter(mTrainingPartOneAdapter);
@@ -276,7 +275,7 @@ public class TrainingActivity extends AppCompatActivity {
 
                 break;
             case ID_PART_TWO_TRAINING:
-                DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartTwo(testList, data -> {
+                DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartTwo(TrainingActivity.this,testList, data -> {
                     loadUI(ID_PART_TWO_TRAINING);
                     TrainingPartTwoAdapter mTrainingPartTwoAdapter = new TrainingPartTwoAdapter(TrainingActivity.this, data);
                     mViewPager.setAdapter(mTrainingPartTwoAdapter);
@@ -336,8 +335,8 @@ public class TrainingActivity extends AppCompatActivity {
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                slider.setValueTo(mediaPlayer.getDuration());
                 txt_timestamp.setText(Utils.getTimeString(mediaPlayer.getDuration()));
+                slider.setValueTo(mediaPlayer.getDuration());
                 mediaPlayer.start();
                 updateSliderProgress();
             }
@@ -358,16 +357,22 @@ public class TrainingActivity extends AppCompatActivity {
                     }else {
                         btn_play.setImageResource(R.drawable.ic_play);
                     }
+                    updateMediaTimeRemaining();
+                    updateSliderProgress();
                 }catch (Exception ex)
                 {
                     ex.printStackTrace();
                 }
-                updateSliderProgress();
             };
             handler.postDelayed(runnable, 200);
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateMediaTimeRemaining() {
+        long timeRemain = mediaPlayer.getDuration() - mediaPlayer.getCurrentPosition();
+        txt_timestamp.setText(Utils.getTimeString(timeRemain));
     }
 
     private void loadUI(final int part_ID) {

@@ -13,8 +13,8 @@ public class Utils {
     public static final int ID_PART_THREE_TRAINING = 3;
     public static final int ID_PART_FOUR_TRAINING = 4;
     public static final String PART_ID = "PART_ID";
-    public static final float ANSWER_STATE_CHOICES = 1.0f;
-    public static final float ANSWER_STATE_CHOOSED = 0.9f;
+    public static final int NUMBER_QUESTION_TRAINING = 5;
+    public static final float ANSWER_STATE_CHOSEN = 0.9f;
     public static final float ANSWER_STATE_FADE = 0.3f;
     public static String getFirebaseUser() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();

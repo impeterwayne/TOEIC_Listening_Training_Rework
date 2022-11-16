@@ -1,11 +1,15 @@
 package com.peterwayne.toeic900.Database;
 
+import static com.peterwayne.toeic900.Utils.Utils.NUMBER_QUESTION_TRAINING;
+
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.peterwayne.toeic900.LocalData.LocalData;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
@@ -30,7 +34,9 @@ public class DBQuery {
             }
         });
     }
-    public static void loadDataPartOne(List<String> listTest, iTrainingCallback<QuestionPartOne> dataCallback) {
+    public static void loadDataPartOne(final Context context,
+                                        final List<String> listTest,
+                                       final iTrainingCallback<QuestionPartOne> dataCallback) {
 
         List<QuestionPartOne> questionList = new ArrayList<>();
         for(String test : listTest)
@@ -38,20 +44,24 @@ public class DBQuery {
             db.collection("Tests").document(test).collection("Part1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    int count=0;
+
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
-                        questionList.add(doc.toObject(QuestionPartOne.class));
-                        count++;
-                        if(count==5) break;
+                        QuestionPartOne question = doc.toObject(QuestionPartOne.class);
+                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        {
+                            questionList.add(question);
+                            if(questionList.size()== NUMBER_QUESTION_TRAINING) break;
+                        }
                     }
                     dataCallback.onCallBack(questionList);
                 }
             });
         }
     }
-    public static void loadDataPartTwo(final List<String> listTest,
-                                       iTrainingCallback<QuestionPartTwo> dataCallback) {
+    public static void loadDataPartTwo(final Context context,
+                                       final List<String> listTest,
+                                       final iTrainingCallback<QuestionPartTwo> dataCallback) {
         List<QuestionPartTwo> questionList = new ArrayList<>();
         for(String testName : listTest)
         {

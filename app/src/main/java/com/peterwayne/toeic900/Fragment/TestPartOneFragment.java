@@ -1,6 +1,6 @@
 package com.peterwayne.toeic900.Fragment;
 import static com.peterwayne.toeic900.Utils.Utils.*;
-import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_CHOOSED;
+import static com.peterwayne.toeic900.Utils.Utils.ANSWER_STATE_CHOSEN;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.peterwayne.toeic900.Activity.RealTestActivity;
 import com.peterwayne.toeic900.Model.Answer;
-import com.peterwayne.toeic900.Utils.Utils;
 
 import java.util.List;
 public class TestPartOneFragment extends PartOneFragment {
@@ -54,7 +53,7 @@ public class TestPartOneFragment extends PartOneFragment {
                 key.setAlpha(ANSWER_STATE_FADE);
             }
         }
-        btnKeyClick.setAlpha(ANSWER_STATE_CHOOSED);
+        btnKeyClick.setAlpha(ANSWER_STATE_CHOSEN);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class TestPartOneFragment extends PartOneFragment {
         super.onSaveInstanceState(outState);
         for(AppCompatButton key : keyButtonsMap.keySet())
         {
-            if(key.getAlpha()==ANSWER_STATE_CHOOSED)
+            if(key.getAlpha()== ANSWER_STATE_CHOSEN)
             {
                 outState.putString("chosenKey", keyButtonsMap.get(key));
             }
@@ -80,7 +79,7 @@ public class TestPartOneFragment extends PartOneFragment {
                     key.setAlpha(ANSWER_STATE_FADE);
                 }else
                 {
-                    key.setAlpha(ANSWER_STATE_CHOOSED);
+                    key.setAlpha(ANSWER_STATE_CHOSEN);
                 }
             }
         }

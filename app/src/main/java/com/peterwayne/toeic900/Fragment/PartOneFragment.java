@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
 import com.peterwayne.toeic900.LocalData.DataLocalManager;
+import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.QuestionDone;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.R;
 import java.util.HashMap;
@@ -39,7 +41,9 @@ public class PartOneFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     processAnswer(key);
-                    DataLocalManager.addDoneQuestion(data.getId());
+                    QuestionDone doneQuestion = new QuestionDone();
+                    doneQuestion.setId(data.getId());
+                    LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
                 }
             });
         }
