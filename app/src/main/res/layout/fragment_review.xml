@@ -20,7 +20,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <TextView
                     android:id="@+id/txt_toolbar_title"
                     android:layout_width="match_parent"
@@ -31,49 +30,5 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-<TextView
-    android:layout_marginTop="64dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/choose_part_to_review"
-    android:textAlignment="center"
-    android:textSize="24sp"
-    android:textColor="@color/black"
-    android:layout_marginBottom="24dp"/>
-<androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/btn_review_part1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_button"
-    android:layout_marginHorizontal="32dp"
-    android:text="@string/part1"
-    android:textColor="@color/white"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_review_part2"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:layout_marginHorizontal="32dp"
-        android:text="@string/part2"
-        android:textColor="@color/white"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_review_part3"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:layout_marginHorizontal="32dp"
-        android:text="@string/part3"
-        android:textColor="@color/white"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_review_part4"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:layout_marginHorizontal="32dp"
-        android:text="@string/part4"
-        android:textColor="@color/white"/>
 
 </LinearLayout>

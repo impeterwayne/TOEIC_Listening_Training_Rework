@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -30,6 +32,8 @@ import com.peterwayne.toeic900.Adapter.TrainingPartOneAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartThreeAndFourAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartTwoAdapter;
 import com.peterwayne.toeic900.Database.DBQuery;
+import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.QuestionReview;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
@@ -46,7 +50,7 @@ public class TrainingActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txt_toolbar_title,txt_toolbar_description;
     private TextView txt_timestamp;
-    private ViewPager2 mViewPager;
+    private ViewPager2 questionPager;
     private MediaPlayer mediaPlayer;
     private ProgressBar loadingBar;
     private AppCompatButton btn_show_script;
@@ -78,7 +82,7 @@ public class TrainingActivity extends AppCompatActivity {
             positionButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mViewPager.setCurrentItem(currPos);
+                    questionPager.setCurrentItem(currPos);
                 }
             });
         }
@@ -119,6 +123,29 @@ public class TrainingActivity extends AppCompatActivity {
                     }
                 }
             });
+            btn_bookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = questionPager.getCurrentItem();
+                    String questionId = data.get(position).getId();
+                    if(LocalData.getInstance(TrainingActivity.this).statusDAO()
+                            .getQuestionReviewById(questionId).isEmpty()) {
+                        if(!LocalData.getInstance(TrainingActivity.this).statusDAO()
+                                .getQuestionDoneById(questionId).isEmpty()) {
+                            addQuestionToReview(questionId);
+                            updateBookmarkUI(data,position);
+                        }else
+                        {
+                            Toast.makeText(TrainingActivity.this,
+                                    "Please answer the question before bookmarking",Toast.LENGTH_SHORT).show();
+                        }
+                    }else
+                    {
+                        removeQuestionFromReview(questionId);
+                        updateBookmarkUI(data,position);
+                    }
+                }
+            });
             slider.setLabelFormatter(new LabelFormatter() {
                 @NonNull
                 @Override
@@ -135,13 +162,14 @@ public class TrainingActivity extends AppCompatActivity {
                     }
                 }
             });
-            mViewPager.setOffscreenPageLimit(2);
-            mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            questionPager.setOffscreenPageLimit(4);
+            questionPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                 @Override
                 public void onPageSelected(int position) {
                     super.onPageSelected(position);
                     updatePagerNavigationUI(position);
                     updateQuestionNumberUI(position);
+                    updateBookmarkUI(data,position);
                     updateShowScriptButtonVisibility(position);
                     playAudioFile(data,position);
                 }
@@ -173,23 +201,47 @@ public class TrainingActivity extends AppCompatActivity {
             btn_prev_question.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int currPos = mViewPager.getCurrentItem();
-                    mViewPager.setCurrentItem(currPos-1);
+                    int currPos = questionPager.getCurrentItem();
+                    questionPager.setCurrentItem(currPos-1);
                 }
             });
             btn_next_question.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int currPos = mViewPager.getCurrentItem();
-                    mViewPager.setCurrentItem(currPos+1);
+                    int currPos = questionPager.getCurrentItem();
+                    questionPager.setCurrentItem(currPos+1);
                 }
             });
             btn_show_script.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showScriptDialog(data.get(mViewPager.getCurrentItem()));
+                    showScriptDialog(data.get(questionPager.getCurrentItem()));
                 }
             });
+
+    }
+
+    private void removeQuestionFromReview(final String questionId) {
+        QuestionReview questionReview = LocalData.getInstance(TrainingActivity.this).statusDAO()
+                .getQuestionReviewById(questionId).get(0);
+        LocalData.getInstance(TrainingActivity.this).statusDAO().deleteReviewQuestion(questionReview);
+    }
+
+    private void addQuestionToReview(final String questionId) {
+        QuestionReview reviewQuestion = new QuestionReview();
+        reviewQuestion.setId(questionId);
+        LocalData.getInstance(TrainingActivity.this).statusDAO()
+                .insertReviewQuestion(reviewQuestion);
+    }
+
+    private <T extends Question>void updateBookmarkUI(final List<T> data, final int position) {
+        if(LocalData.getInstance(TrainingActivity.this).statusDAO().getQuestionReviewById(data.get(position).getId()).isEmpty())
+        {
+            btn_bookmark.setImageResource(R.drawable.ic_bookmark);
+        }else
+        {
+            btn_bookmark.setImageResource(R.drawable.ic_bookmarked);
+        }
     }
 
     private <T extends Question> void showScriptDialog(T data) {
@@ -264,10 +316,11 @@ public class TrainingActivity extends AppCompatActivity {
                 DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartOne(TrainingActivity.this, testList, data -> {
                     loadUI(ID_PART_ONE_TRAINING);
                     TrainingPartOneAdapter mTrainingPartOneAdapter = new TrainingPartOneAdapter(TrainingActivity.this, data);
-                    mViewPager.setAdapter(mTrainingPartOneAdapter);
+                    questionPager.setAdapter(mTrainingPartOneAdapter);
                     if(data.size()>0)
                     {
                         playAudioFile(data, 0);
+                        updateBookmarkUI(data,0);
                         btn_prev_question.setVisibility(View.GONE);
                     }
                     addEvents(data);
@@ -278,10 +331,11 @@ public class TrainingActivity extends AppCompatActivity {
                 DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartTwo(TrainingActivity.this,testList, data -> {
                     loadUI(ID_PART_TWO_TRAINING);
                     TrainingPartTwoAdapter mTrainingPartTwoAdapter = new TrainingPartTwoAdapter(TrainingActivity.this, data);
-                    mViewPager.setAdapter(mTrainingPartTwoAdapter);
+                    questionPager.setAdapter(mTrainingPartTwoAdapter);
                     if(data.size()>0)
                     {
                         playAudioFile(data, 0);
+                        updateBookmarkUI(data,0);
                         btn_prev_question.setVisibility(View.GONE);
                     }
                     addEvents(data);
@@ -292,10 +346,11 @@ public class TrainingActivity extends AppCompatActivity {
                     DBQuery.loadDataPartThree(TrainingActivity.this,testList, data -> {
                         loadUI(ID_PART_THREE_TRAINING);
                         TrainingPartThreeAndFourAdapter partThreeAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
-                        mViewPager.setAdapter(partThreeAdapter);
+                        questionPager.setAdapter(partThreeAdapter);
                         if(data.size()>0)
                         {
                             playAudioFile(data, 0);
+                            updateBookmarkUI(data,0);
                             btn_prev_question.setVisibility(View.GONE);
                         }
                         addEvents(data);
@@ -307,7 +362,7 @@ public class TrainingActivity extends AppCompatActivity {
                     DBQuery.loadDataPartFour(TrainingActivity.this,testList, data -> {
                         loadUI(ID_PART_FOUR_TRAINING);
                         TrainingPartThreeAndFourAdapter partFourAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
-                        mViewPager.setAdapter(partFourAdapter);
+                        questionPager.setAdapter(partFourAdapter);
                         if(data.size()>0)
                         {
                             playAudioFile(data, 0);
@@ -411,7 +466,7 @@ public class TrainingActivity extends AppCompatActivity {
         btn_next_question = findViewById(R.id.btn_next_question);
         btn_prev_question = findViewById(R.id.btn_prev_question);
         loadingBar = findViewById(R.id.loadingBar);
-        mViewPager = findViewById(R.id.viewpager_training);
+        questionPager = findViewById(R.id.viewpager_training);
         initPositionButtons();
         handler = new Handler();
     }
