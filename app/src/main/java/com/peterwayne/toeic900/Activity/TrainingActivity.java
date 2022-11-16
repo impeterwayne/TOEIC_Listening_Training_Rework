@@ -289,7 +289,7 @@ public class TrainingActivity extends AppCompatActivity {
                 break;
             case ID_PART_THREE_TRAINING:
                 DBQuery.loadTestNameList(testList -> {
-                    DBQuery.loadDataPartThree(testList, data -> {
+                    DBQuery.loadDataPartThree(TrainingActivity.this,testList, data -> {
                         loadUI(ID_PART_THREE_TRAINING);
                         TrainingPartThreeAndFourAdapter partThreeAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
                         mViewPager.setAdapter(partThreeAdapter);
@@ -304,7 +304,7 @@ public class TrainingActivity extends AppCompatActivity {
                 break;
             case ID_PART_FOUR_TRAINING:
                 DBQuery.loadTestNameList(testList -> {
-                    DBQuery.loadDataPartFour(testList, data -> {
+                    DBQuery.loadDataPartFour(TrainingActivity.this,testList, data -> {
                         loadUI(ID_PART_FOUR_TRAINING);
                         TrainingPartThreeAndFourAdapter partFourAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
                         mViewPager.setAdapter(partFourAdapter);

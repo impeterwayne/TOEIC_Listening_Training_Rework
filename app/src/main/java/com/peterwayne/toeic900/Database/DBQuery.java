@@ -30,7 +30,6 @@ public class DBQuery {
                     testList.add(doc.get("name", String.class));
                 }
                 callback.onCallBack(testList);
-                Log.d("TestListSize", String.valueOf(testList.size()));
             }
         });
     }
@@ -44,17 +43,16 @@ public class DBQuery {
             db.collection("Tests").document(test).collection("Part1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartOne question = doc.toObject(QuestionPartOne.class);
                         if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
                         {
                             questionList.add(question);
-                            if(questionList.size()== NUMBER_QUESTION_TRAINING) break;
+                            if(questionList.size() == NUMBER_QUESTION_TRAINING) break;
                         }
                     }
-                    dataCallback.onCallBack(questionList);
+                    if(questionList.size()<=NUMBER_QUESTION_TRAINING) dataCallback.onCallBack(questionList);
                 }
             });
         }
@@ -65,55 +63,67 @@ public class DBQuery {
         List<QuestionPartTwo> questionList = new ArrayList<>();
         for(String testName : listTest)
         {
+
             db.collection("Tests").document(testName).collection("Part2").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    int count=0;
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
-                        questionList.add(doc.toObject(QuestionPartTwo.class));
-                        count++;
-                        if(count==5)break;
+                        QuestionPartTwo question = doc.toObject(QuestionPartTwo.class);
+                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        {
+                            questionList.add(question);
+                        }
+                        if(questionList.size()==NUMBER_QUESTION_TRAINING) break;
                     }
-                    dataCallback.onCallBack(questionList);
+                    if(questionList.size()<=NUMBER_QUESTION_TRAINING) dataCallback.onCallBack(questionList);
                 }
             });
         }
     }
-    public static void loadDataPartThree(final List<String> listTest,
-                                         iTrainingCallback<QuestionPartThreeAndFour> dataCallback) {
+    public static void loadDataPartThree(final Context context,
+                                         final List<String> listTest,
+                                         final iTrainingCallback<QuestionPartThreeAndFour> dataCallback) {
         List<QuestionPartThreeAndFour> questionList = new ArrayList<>();
         for(final String testName : listTest) {
             db.collection("Tests").document(testName).collection("Part3").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    int count=0;
+
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
+                        QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
                         questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        count++;
-                        if(count==5)break;
+                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        {
+                            questionList.add(question);
+                        }
+                        if(questionList.size()==NUMBER_QUESTION_TRAINING) break;
                     }
-                    dataCallback.onCallBack(questionList);
+                    if(questionList.size()<=NUMBER_QUESTION_TRAINING) dataCallback.onCallBack(questionList);
                 }
             });
         }
     }
-    public static void loadDataPartFour(final List<String> listTest,
-                                         final iTrainingCallback<QuestionPartThreeAndFour> dataCallback) {
+    public static void loadDataPartFour(final Context context,
+                                        final List<String> listTest,
+                                        final iTrainingCallback<QuestionPartThreeAndFour> dataCallback) {
         final List<QuestionPartThreeAndFour> questionList = new ArrayList<>();
         for(final String testName : listTest) {
             db.collection("Tests").document(testName).collection("Part4").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    int count=0;
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
+                        QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
                         questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        count++;
-                        if(count==5)break;
+                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        {
+                            questionList.add(question);
+                        }
+                        if(questionList.size()==NUMBER_QUESTION_TRAINING) break;
                     }
-                    dataCallback.onCallBack(questionList);
+                    if(questionList.size()<=NUMBER_QUESTION_TRAINING)dataCallback.onCallBack(questionList);
                 }
             });
         }

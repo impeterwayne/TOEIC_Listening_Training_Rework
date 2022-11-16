@@ -9,7 +9,7 @@ import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import java.util.List;
 
 public class TrainingPartTwoAdapter extends FragmentStateAdapter {
-    private List<QuestionPartTwo> data;
+    private final List<QuestionPartTwo> data;
     public TrainingPartTwoAdapter(@NonNull FragmentActivity fragmentActivity, List<QuestionPartTwo> data) {
         super(fragmentActivity);
         this.data = data;
