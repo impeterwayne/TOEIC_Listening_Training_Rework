@@ -2,6 +2,8 @@ package com.peterwayne.toeic900.Fragment;
 
 import static android.view.View.VISIBLE;
 
+import static com.peterwayne.toeic900.LocalData.DataLocalManager.addDoneQuestion;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.peterwayne.toeic900.LocalData.DataLocalManager;
+import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.QuestionDone;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
 
@@ -40,12 +44,16 @@ public class PartTwoFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     processAnswer(key);
-                    DataLocalManager.addDoneQuestion(data.getId());
+                    addDoneQuestion();
                 }
             });
         }
     }
-
+    private void addDoneQuestion() {
+        QuestionDone doneQuestion = new QuestionDone();
+        doneQuestion.setId(data.getId());
+        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
+    }
     private void addControls(View view) {
         txt_script_part_two = view.findViewById(R.id.txt_script_part_two);
         txt_number = view.findViewById(R.id.txt_number);

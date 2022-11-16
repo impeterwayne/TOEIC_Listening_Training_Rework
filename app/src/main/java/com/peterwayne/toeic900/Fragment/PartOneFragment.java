@@ -1,5 +1,8 @@
 package com.peterwayne.toeic900.Fragment;
 import static android.view.View.VISIBLE;
+
+import static com.peterwayne.toeic900.LocalData.DataLocalManager.addDoneQuestion;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +13,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
-import com.peterwayne.toeic900.LocalData.DataLocalManager;
 import com.peterwayne.toeic900.LocalData.LocalData;
 import com.peterwayne.toeic900.LocalData.QuestionDone;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
@@ -41,13 +43,17 @@ public class PartOneFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     processAnswer(key);
-                    QuestionDone doneQuestion = new QuestionDone();
-                    doneQuestion.setId(data.getId());
-                    LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
+                    addDoneQuestion();
                 }
             });
         }
 
+    }
+
+    private void addDoneQuestion() {
+        QuestionDone doneQuestion = new QuestionDone();
+        doneQuestion.setId(data.getId());
+        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
     }
 
     private void addControls(View view) {
@@ -59,7 +65,6 @@ public class PartOneFragment extends Fragment {
         keyButtonsMap.put(view.findViewById(R.id.btn_key1C), "C");
         keyButtonsMap.put(view.findViewById(R.id.btn_key1D), "D");
         passDataToView();
-
     }
 
     protected void passDataToView() {
@@ -75,7 +80,6 @@ public class PartOneFragment extends Fragment {
         for (AppCompatButton key : keyButtonsMap.keySet()) {
             key.setClickable(false);
         }
-
         ((TrainingActivity)getActivity()).getBtnShowScript().setVisibility(VISIBLE);
     }
 

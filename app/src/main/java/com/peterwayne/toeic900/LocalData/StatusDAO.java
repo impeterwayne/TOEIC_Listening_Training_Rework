@@ -22,8 +22,8 @@ public interface StatusDAO {
     List<QuestionReview> getQuestionDoneById(final String ID);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addDoneQuestion(QuestionDone question);
+    void insertDoneQuestion(QuestionDone question);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addReviewQuestion(QuestionReview question);
+    void insertReviewQuestion(QuestionReview question);
 }

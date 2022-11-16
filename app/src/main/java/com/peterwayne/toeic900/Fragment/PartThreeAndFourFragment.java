@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.peterwayne.toeic900.Activity.TrainingActivity;
 import com.peterwayne.toeic900.LocalData.DataLocalManager;
+import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.QuestionDone;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -79,11 +81,15 @@ public class PartThreeAndFourFragment extends Fragment {
         countAnsweredQuestions++;
         if(countAnsweredQuestions==3)
         {
-            DataLocalManager.addDoneQuestion(data.getId());
+            addDoneQuestion();
             ((TrainingActivity)getActivity()).getBtnShowScript().setVisibility(VISIBLE);
         }
     }
-
+    private void addDoneQuestion() {
+        QuestionDone doneQuestion = new QuestionDone();
+        doneQuestion.setId(data.getId());
+        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
+    }
     protected void updateUI(AppCompatButton key, HashMap<AppCompatButton, String> keyMap, String correctKey) {
         if(Objects.equals(keyMap.get(key), correctKey))
         {
