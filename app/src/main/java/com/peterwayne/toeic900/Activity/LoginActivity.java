@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     //facebook login
     private static final String TAG_FACEBOOK = "FacebookLogin";
     private CallbackManager mCallbackManager;
-    //
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private CollectionReference ref;

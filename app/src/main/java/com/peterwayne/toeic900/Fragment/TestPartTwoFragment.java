@@ -41,7 +41,7 @@ public class TestPartTwoFragment extends PartTwoFragment{
             if(answer.getNumber() == answerNumber)
             {
                 answer.setKey(data.getKey());
-                answer.setKeyChoosed(keyButtonsMap.get(btnKeyClick));
+                answer.setKeyChosen(keyButtonsMap.get(btnKeyClick));
             }
             int position =answerList.indexOf(answer);
             ((RealTestActivity) getActivity()).getAnswerSheetAdapter().notifyItemChanged(position);

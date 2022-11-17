@@ -3,7 +3,7 @@ package com.peterwayne.toeic900.Model;
 public class Answer{
     private long number;
     private String key;
-    private String keyChoosed;
+    private String keyChosen;
 
     public Answer(final long number)
     {
@@ -22,11 +22,11 @@ public class Answer{
         this.key = key;
     }
 
-    public String getKeyChoosed() {
-        return keyChoosed;
+    public String getKeyChosen() {
+        return keyChosen;
     }
 
-    public void setKeyChoosed(String keyChoosed) {
-        this.keyChoosed = keyChoosed;
+    public void setKeyChosen(String keyChosen) {
+        this.keyChosen = keyChosen;
     }
 }

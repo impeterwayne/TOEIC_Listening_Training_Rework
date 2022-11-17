@@ -35,7 +35,6 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/img_avatar"
                 android:fontFamily="@font/cabin"
-                android:text="Peter Wayne"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
         </RelativeLayout>

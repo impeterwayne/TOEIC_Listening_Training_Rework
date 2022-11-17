@@ -35,11 +35,11 @@ public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.
     public void onBindViewHolder(@NonNull AnswerSheetAdapter.ViewHolder holder, int position) {
         Answer answer = listAnswer.get(position);
         holder.txt_answer_number.setText(String.valueOf(answer.getNumber()));
-        if(answer.getKeyChoosed()!=null)
+        if(answer.getKeyChosen()!=null)
         {
             holder.txt_answer_number.setBackgroundResource(R.drawable.bg_cirle_primary);
             holder.txt_answer_key.setBackgroundResource(R.drawable.bg_cirle_primary);
-            holder.txt_answer_key.setText(answer.getKeyChoosed());
+            holder.txt_answer_key.setText(answer.getKeyChosen());
         }
     }
 

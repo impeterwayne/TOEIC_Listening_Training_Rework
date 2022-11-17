@@ -48,7 +48,7 @@ public class TestPartThreeAndFourFragment extends PartThreeAndFourFragment
             if(answer.getNumber() == answerNumber)
             {
                 answer.setKey(correctKey);
-                answer.setKeyChoosed(keyMap.get(key));
+                answer.setKeyChosen(keyMap.get(key));
             }
             int position = answerList.indexOf(answer);
             ((RealTestActivity) getActivity()).getAnswerSheetAdapter().notifyItemChanged(position);

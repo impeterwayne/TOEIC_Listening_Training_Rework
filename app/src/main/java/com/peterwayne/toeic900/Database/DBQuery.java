@@ -14,6 +14,7 @@ import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
+import com.peterwayne.toeic900.Model.RealTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class DBQuery {
             }
         });
     }
+
     public static void loadDataPartOne(final Context context,
                                         final List<String> listTest,
                                        final iTrainingCallback<QuestionPartOne> dataCallback) {

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_review:
                         viewPager.setCurrentItem(3);
                         break;
-                    case R.id.nav_account:
+                    case R.id.nav_profile:
                         viewPager.setCurrentItem(4);
                         break;
                 }
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.nav_review).setChecked(true);
                         break;
                     case 4:
-                        bottomNavigationView.getMenu().findItem(R.id.nav_account).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
                         break;
                 }
             }

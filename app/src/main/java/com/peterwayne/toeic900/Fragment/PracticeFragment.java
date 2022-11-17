@@ -27,11 +27,11 @@ public class PracticeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_practice, container, false);
         addControls(view);
-        addEvents(view);
+        addEvents();
         return view;
     }
 
-    private void addEvents(View view) {
+    private void addEvents() {
         Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).centerCrop().into(img_avatar);
         txt_fullName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 

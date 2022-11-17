@@ -8,9 +8,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="practice">Practice</string>
     <string name="statistic">Statistic</string>
-    <string name="test">Real tests</string>
+    <string name="test">Tests</string>
     <string name="review">Review</string>
-    <string name="account">Account</string>
+    <string name="profile">Profile</string>
     <string name="training_part_one">Part One Training</string>
     <string name="part_one_description">Describe the picture</string>
     <string name="keyA">(A)</string>
@@ -27,13 +27,13 @@
     <string name="part3_training">Part Three Training</string>
     <string name="part4_training">Part Four Training</string>
     <string name="choose_part_to_review">Choose the part to review</string>
-    <string name="review_saved_question">Review Questions</string>
+    <string name="revision">Revision</string>
     <string name="no_question">There is no question to review</string>
-    <string name="real_test">Taking Real Tests</string>
+    <string name="real_test">Real Tests</string>
     <string name="submit">Submit</string>
     <string name="statistic_title">Progress</string>
     <string name="result">Result</string>
     <string name="logout">Log out</string>
     <string name="view_answer">View Script</string>
-
+    <string name="target">Target</string>
 </resources>
