@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.peterwayne.toeic900.R;
 
 
-public class EmptyReviewFragment extends Fragment {
+public class EmptyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

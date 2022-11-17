@@ -33,4 +33,8 @@ public class Question {
     public long getNumber() {
         return number;
     }
+
+    public void setNumber(long number) {
+        this.number = number;
+    }
 }

@@ -1,8 +1,6 @@
 package com.peterwayne.toeic900.Fragment;
 import static android.view.View.VISIBLE;
 
-import static com.peterwayne.toeic900.LocalData.DataLocalManager.addDoneQuestion;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
 import com.peterwayne.toeic900.LocalData.LocalData;
-import com.peterwayne.toeic900.LocalData.QuestionDone;
+import com.peterwayne.toeic900.LocalData.QuestionPartOneStatus;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.R;
 import java.util.HashMap;
@@ -51,9 +49,21 @@ public class PartOneFragment extends Fragment {
     }
 
     private void addDoneQuestion() {
-        QuestionDone doneQuestion = new QuestionDone();
-        doneQuestion.setId(data.getId());
-        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
+        if(data!=null)
+        {
+            QuestionPartOneStatus doneQuestion = new QuestionPartOneStatus();
+            doneQuestion.setId(data.getId());
+            doneQuestion.setNumber(data.getNumber());
+            doneQuestion.setKey(data.getKey());
+            doneQuestion.setImage_url(data.getImage_url());
+            doneQuestion.setAudio_url(data.getAudio_url());
+            doneQuestion.setScript_keyA(data.getScript_keyA());
+            doneQuestion.setScript_keyB(data.getScript_keyB());
+            doneQuestion.setScript_keyC(data.getScript_keyC());
+            doneQuestion.setScript_keyD(data.getScript_keyD());
+            doneQuestion.setDone(true);
+            LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
+        }
     }
 
     private void addControls(View view) {

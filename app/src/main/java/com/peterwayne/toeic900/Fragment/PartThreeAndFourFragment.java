@@ -12,9 +12,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.peterwayne.toeic900.Activity.TrainingActivity;
-import com.peterwayne.toeic900.LocalData.DataLocalManager;
 import com.peterwayne.toeic900.LocalData.LocalData;
-import com.peterwayne.toeic900.LocalData.QuestionDone;
+import com.peterwayne.toeic900.LocalData.QuestionPartThreeAndFourStatus;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -86,9 +85,44 @@ public class PartThreeAndFourFragment extends Fragment {
         }
     }
     private void addDoneQuestion() {
-        QuestionDone doneQuestion = new QuestionDone();
+        QuestionPartThreeAndFourStatus doneQuestion = new QuestionPartThreeAndFourStatus();
         doneQuestion.setId(data.getId());
-        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
+        doneQuestion.setNumber(data.getNumber());
+        doneQuestion.setImage_url(data.getImage_url());
+        doneQuestion.setAudio_url(data.getAudio_url());
+
+        doneQuestion.setQuestion1(data.getQuestion1());
+        doneQuestion.setQuestion2(data.getQuestion2());
+        doneQuestion.setQuestion3(data.getQuestion3());
+
+        doneQuestion.setNumber1(data.getNumber1());
+        doneQuestion.setNumber2(data.getNumber2());
+        doneQuestion.setNumber3(data.getNumber3());
+
+        doneQuestion.setKey1(data.getKey1());
+        doneQuestion.setKey2(data.getKey2());
+        doneQuestion.setKey3(data.getKey3());
+
+        doneQuestion.setScript(data.getScript());
+
+        doneQuestion.setScript_key1A(data.getScript_key1A());
+        doneQuestion.setScript_key1B(data.getScript_key1B());
+        doneQuestion.setScript_key1C(data.getScript_key1C());
+        doneQuestion.setScript_key1D(data.getScript_key1D());
+
+        doneQuestion.setScript_key2A(data.getScript_key2A());
+        doneQuestion.setScript_key2B(data.getScript_key2B());
+        doneQuestion.setScript_key2C(data.getScript_key2C());
+        doneQuestion.setScript_key2D(data.getScript_key2D());
+
+        doneQuestion.setScript_key3A(data.getScript_key3A());
+        doneQuestion.setScript_key3B(data.getScript_key3B());
+        doneQuestion.setScript_key3C(data.getScript_key3C());
+        doneQuestion.setScript_key3D(data.getScript_key3D());
+
+
+        doneQuestion.setDone(true);
+        LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
     }
     protected void updateUI(AppCompatButton key, HashMap<AppCompatButton, String> keyMap, String correctKey) {
         if(Objects.equals(keyMap.get(key), correctKey))

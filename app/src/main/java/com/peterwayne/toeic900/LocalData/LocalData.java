@@ -6,7 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {QuestionDone.class, QuestionReview.class}, version = 1)
+@Database(entities = {QuestionPartOneStatus.class,
+                    QuestionPartTwoStatus.class,
+                    QuestionPartThreeAndFourStatus.class},
+                    version = 1)
 public abstract class LocalData extends RoomDatabase {
 
     private static final String DATABASE_NAME = "status.db";

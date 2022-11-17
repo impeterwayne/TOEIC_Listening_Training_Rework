@@ -16,6 +16,6 @@
         android:textSize="18sp"
         android:padding="18dp"
         android:textColor="@color/black"
-        android:text="ETS 2018 Test No. 1"
+        android:fontFamily="@font/arbutus_slab"
         android:textStyle="bold"/>
 </androidx.cardview.widget.CardView>

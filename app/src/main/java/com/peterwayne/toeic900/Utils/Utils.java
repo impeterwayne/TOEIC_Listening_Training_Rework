@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Utils {
     public static final int RESULT_VIEW_TYPE = 1;
     public static final int TEST_VIEW_TYPE = 2;
+    public static final int ID_REVIEW_TRAINING = 0;
     public static final int ID_PART_ONE_TRAINING = 1;
     public static final int ID_PART_TWO_TRAINING = 2;
     public static final int ID_PART_THREE_TRAINING = 3;

@@ -2,8 +2,6 @@ package com.peterwayne.toeic900.Fragment;
 
 import static android.view.View.VISIBLE;
 
-import static com.peterwayne.toeic900.LocalData.DataLocalManager.addDoneQuestion;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import com.peterwayne.toeic900.LocalData.DataLocalManager;
 import com.peterwayne.toeic900.LocalData.LocalData;
-import com.peterwayne.toeic900.LocalData.QuestionDone;
+import com.peterwayne.toeic900.LocalData.QuestionPartTwoStatus;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
 
@@ -50,9 +47,17 @@ public class PartTwoFragment extends Fragment {
         }
     }
     private void addDoneQuestion() {
-        QuestionDone doneQuestion = new QuestionDone();
+        QuestionPartTwoStatus doneQuestion = new QuestionPartTwoStatus();
         doneQuestion.setId(data.getId());
-        LocalData.getInstance(getContext()).statusDAO().insertDoneQuestion(doneQuestion);
+        doneQuestion.setNumber(data.getNumber());
+        doneQuestion.setKey(data.getKey());
+        doneQuestion.setScript(data.getScript());
+        doneQuestion.setAudio_url(data.getAudio_url());
+        doneQuestion.setScript_keyA(data.getScript_keyA());
+        doneQuestion.setScript_keyB(data.getScript_keyB());
+        doneQuestion.setScript_keyC(data.getScript_keyC());
+        doneQuestion.setDone(true);
+        LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
     }
     private void addControls(View view) {
         txt_script_part_two = view.findViewById(R.id.txt_script_part_two);

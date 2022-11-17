@@ -35,7 +35,29 @@ public class QuestionPartOne extends Question{
         return key;
     }
 
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 
+    public void setScript_keyA(String script_keyA) {
+        this.script_keyA = script_keyA;
+    }
+
+    public void setScript_keyB(String script_keyB) {
+        this.script_keyB = script_keyB;
+    }
+
+    public void setScript_keyC(String script_keyC) {
+        this.script_keyC = script_keyC;
+    }
+
+    public void setScript_keyD(String script_keyD) {
+        this.script_keyD = script_keyD;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
 
 

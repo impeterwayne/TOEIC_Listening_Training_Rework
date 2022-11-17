@@ -30,5 +30,34 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+    android:id="@+id/txt_num_revision"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginTop="32dp"
+    android:layout_marginHorizontal="12dp"
+    android:textColor="@color/black"
+    android:fontFamily="@font/arbutus_slab"
+    android:textStyle="bold"
+    android:textSize="16sp"/>
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_margin="12dp"
+        android:src="@drawable/revision"/>
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_review"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_button_variant"
+        android:paddingHorizontal="8dp"
+        android:text="@string/review"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 </LinearLayout>

@@ -175,6 +175,18 @@ public class QuestionPartThreeAndFour extends Question{
         this.script = script;
     }
 
+    public void setNumber1(long number1) {
+        this.number1 = number1;
+    }
+
+    public void setNumber2(long number2) {
+        this.number2 = number2;
+    }
+
+    public void setNumber3(long number3) {
+        this.number3 = number3;
+    }
+
     @Override
     public long getNumber() {
         return getNumber1();

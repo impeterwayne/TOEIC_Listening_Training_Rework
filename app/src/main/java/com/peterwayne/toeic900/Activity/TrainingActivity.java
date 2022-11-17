@@ -1,10 +1,13 @@
 package com.peterwayne.toeic900.Activity;
+
 import static com.peterwayne.toeic900.Utils.Utils.ID_PART_FOUR_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.ID_PART_ONE_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.ID_PART_THREE_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.ID_PART_TWO_TRAINING;
+import static com.peterwayne.toeic900.Utils.Utils.ID_REVIEW_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.PART_ID;
 import static com.peterwayne.toeic900.Utils.Utils.getTimeString;
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,23 +28,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
 import com.peterwayne.toeic900.Adapter.CategoryAdapter;
+import com.peterwayne.toeic900.Adapter.RevisionAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartOneAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartThreeAndFourAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartTwoAdapter;
 import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.LocalData.LocalData;
-import com.peterwayne.toeic900.LocalData.QuestionReview;
+import com.peterwayne.toeic900.LocalData.QuestionPartOneStatus;
+import com.peterwayne.toeic900.LocalData.QuestionPartThreeAndFourStatus;
+import com.peterwayne.toeic900.LocalData.QuestionPartTwoStatus;
+import com.peterwayne.toeic900.LocalData.StatusDAO;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
 import com.peterwayne.toeic900.Utils.Utils;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TrainingActivity extends AppCompatActivity {
     private Slider slider;
@@ -60,6 +72,7 @@ public class TrainingActivity extends AppCompatActivity {
     private final int[] positionArr = { R.id.btn_question_one, R.id.btn_question_two, R.id.btn_question_three,
                                         R.id.btn_question_four,R.id.btn_question_five};
     private ImageView[] positionButtons;
+    private static StatusDAO localDataRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +106,6 @@ public class TrainingActivity extends AppCompatActivity {
                 {
                     mediaPlayer.stop();
                     mediaPlayer.release();
-
                 }
                 handler.removeCallbacks(runnable);
                 finish();
@@ -128,12 +140,14 @@ public class TrainingActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int position = questionPager.getCurrentItem();
                     String questionId = data.get(position).getId();
-                    if(LocalData.getInstance(TrainingActivity.this).statusDAO()
-                            .getQuestionReviewById(questionId).isEmpty()) {
-                        if(!LocalData.getInstance(TrainingActivity.this).statusDAO()
-                                .getQuestionDoneById(questionId).isEmpty()) {
-                            addQuestionToReview(questionId);
-                            updateBookmarkUI(data,position);
+                    if(localDataRef.getReviewPartOneById(questionId)==null &&
+                            localDataRef.getReviewPartTwoById(questionId)==null &&
+                            localDataRef.getReviewPartThreeAndFourById(questionId)==null) {
+                        if(localDataRef.getDonePartOneById(questionId)!=null ||
+                           localDataRef.getDonePartTwoById(questionId)!=null ||
+                           localDataRef.getDonePartThreeAndFourById(questionId)!=null) {
+                            addQuestionToReview(data.get(position));
+                            updateBookmarkUI(data.get(position));
                         }else
                         {
                             Toast.makeText(TrainingActivity.this,
@@ -141,8 +155,8 @@ public class TrainingActivity extends AppCompatActivity {
                         }
                     }else
                     {
-                        removeQuestionFromReview(questionId);
-                        updateBookmarkUI(data,position);
+                        removeQuestionFromReview(data.get(position));
+                        updateBookmarkUI(data.get(position));
                     }
                 }
             });
@@ -169,7 +183,7 @@ public class TrainingActivity extends AppCompatActivity {
                     super.onPageSelected(position);
                     updatePagerNavigationUI(position);
                     updateQuestionNumberUI(position);
-                    updateBookmarkUI(data,position);
+                    updateBookmarkUI(data.get(position));
                     updateShowScriptButtonVisibility(position);
                     playAudioFile(data,position);
                 }
@@ -221,21 +235,48 @@ public class TrainingActivity extends AppCompatActivity {
 
     }
 
-    private void removeQuestionFromReview(final String questionId) {
-        QuestionReview questionReview = LocalData.getInstance(TrainingActivity.this).statusDAO()
-                .getQuestionReviewById(questionId).get(0);
-        LocalData.getInstance(TrainingActivity.this).statusDAO().deleteReviewQuestion(questionReview);
+    private void removeQuestionFromReview(final Question question) {
+        if(question instanceof QuestionPartOne)
+        {
+            QuestionPartOneStatus reviewQuestion = localDataRef.getDonePartOneById(question.getId());
+            reviewQuestion.setToReview(false);
+            localDataRef.addToReview(reviewQuestion);
+        }else if(question instanceof QuestionPartTwo)
+        {
+            QuestionPartTwoStatus reviewQuestion = localDataRef.getDonePartTwoById(question.getId());
+            reviewQuestion.setToReview(false);
+            localDataRef.addToReview(reviewQuestion);
+        }else if(question instanceof QuestionPartThreeAndFour)
+        {
+            QuestionPartThreeAndFourStatus reviewQuestion = localDataRef.getDonePartThreeAndFourById(question.getId());
+            reviewQuestion.setToReview(false);
+            localDataRef.addToReview(reviewQuestion);
+        }
     }
 
-    private void addQuestionToReview(final String questionId) {
-        QuestionReview reviewQuestion = new QuestionReview();
-        reviewQuestion.setId(questionId);
-        LocalData.getInstance(TrainingActivity.this).statusDAO()
-                .insertReviewQuestion(reviewQuestion);
+    private void addQuestionToReview(final Question question) {
+        if(question instanceof QuestionPartOne)
+        {
+            QuestionPartOneStatus reviewQuestion = localDataRef.getDonePartOneById(question.getId());
+            reviewQuestion.setToReview(true);
+            localDataRef.addToReview(reviewQuestion);
+        }else if(question instanceof QuestionPartTwo)
+        {
+            QuestionPartTwoStatus reviewQuestion = localDataRef.getDonePartTwoById(question.getId());
+            reviewQuestion.setToReview(true);
+            localDataRef.addToReview(reviewQuestion);
+        }else if(question instanceof QuestionPartThreeAndFour)
+        {
+            QuestionPartThreeAndFourStatus reviewQuestion = localDataRef.getDonePartThreeAndFourById(question.getId());
+            reviewQuestion.setToReview(true);
+            localDataRef.addToReview(reviewQuestion);
+        }
     }
 
-    private <T extends Question>void updateBookmarkUI(final List<T> data, final int position) {
-        if(LocalData.getInstance(TrainingActivity.this).statusDAO().getQuestionReviewById(data.get(position).getId()).isEmpty())
+    private <T extends Question>void updateBookmarkUI(final T question) {
+        if(localDataRef.getReviewPartOneById(question.getId())==null &&
+                localDataRef.getReviewPartTwoById(question.getId())==null &&
+                localDataRef.getReviewPartThreeAndFourById(question.getId())==null)
         {
             btn_bookmark.setImageResource(R.drawable.ic_bookmark);
         }else
@@ -320,12 +361,11 @@ public class TrainingActivity extends AppCompatActivity {
                     if(data.size()>0)
                     {
                         playAudioFile(data, 0);
-                        updateBookmarkUI(data,0);
+                        updateBookmarkUI(data.get(0));
                         btn_prev_question.setVisibility(View.GONE);
                     }
                     addEvents(data);
                 }));
-
                 break;
             case ID_PART_TWO_TRAINING:
                 DBQuery.loadTestNameList(testList -> DBQuery.loadDataPartTwo(TrainingActivity.this,testList, data -> {
@@ -335,7 +375,7 @@ public class TrainingActivity extends AppCompatActivity {
                     if(data.size()>0)
                     {
                         playAudioFile(data, 0);
-                        updateBookmarkUI(data,0);
+                        updateBookmarkUI(data.get(0));
                         btn_prev_question.setVisibility(View.GONE);
                     }
                     addEvents(data);
@@ -343,35 +383,50 @@ public class TrainingActivity extends AppCompatActivity {
                 break;
             case ID_PART_THREE_TRAINING:
                 DBQuery.loadTestNameList(testList -> {
-                    DBQuery.loadDataPartThree(TrainingActivity.this,testList, data -> {
+                    DBQuery.loadDataPartThree(TrainingActivity.this,testList, questionList -> {
                         loadUI(ID_PART_THREE_TRAINING);
-                        TrainingPartThreeAndFourAdapter partThreeAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
+                        TrainingPartThreeAndFourAdapter partThreeAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,questionList);
                         questionPager.setAdapter(partThreeAdapter);
-                        if(data.size()>0)
+                        if(questionList.size()>0)
                         {
-                            playAudioFile(data, 0);
-                            updateBookmarkUI(data,0);
+                            playAudioFile(questionList, 0);
+                            updateBookmarkUI(questionList.get(0));
                             btn_prev_question.setVisibility(View.GONE);
                         }
-                        addEvents(data);
+                        addEvents(questionList);
                     });
                 });
                 break;
             case ID_PART_FOUR_TRAINING:
                 DBQuery.loadTestNameList(testList -> {
-                    DBQuery.loadDataPartFour(TrainingActivity.this,testList, data -> {
+                    DBQuery.loadDataPartFour(TrainingActivity.this,testList, questionList -> {
                         loadUI(ID_PART_FOUR_TRAINING);
-                        TrainingPartThreeAndFourAdapter partFourAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,data);
+                        TrainingPartThreeAndFourAdapter partFourAdapter = new TrainingPartThreeAndFourAdapter(TrainingActivity.this,questionList);
                         questionPager.setAdapter(partFourAdapter);
-                        if(data.size()>0)
+                        if(questionList.size()>0)
                         {
-                            playAudioFile(data, 0);
+                            playAudioFile(questionList, 0);
                             btn_prev_question.setVisibility(View.GONE);
                         }
-                        addEvents(data);
+                        addEvents(questionList);
                     });
                 });
                 break;
+            case ID_REVIEW_TRAINING:
+                List<Question> questionList = new ArrayList<>();
+                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartOne()));
+                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartTwo()));
+                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartThreeAndFour()));
+                RevisionAdapter revisionAdapter = new RevisionAdapter(TrainingActivity.this,questionList);
+                questionPager.setAdapter(revisionAdapter);
+                if(questionList.size()>0)
+                {
+                    playAudioFile(questionList, 0);
+                    btn_prev_question.setVisibility(View.GONE);
+                }
+                addEvents(questionList);
+                break;
+
         }
     }
     private <T extends Question> void playAudioFile(List<T> data, int position) {
@@ -469,6 +524,7 @@ public class TrainingActivity extends AppCompatActivity {
         questionPager = findViewById(R.id.viewpager_training);
         initPositionButtons();
         handler = new Handler();
+        localDataRef = LocalData.getInstance(TrainingActivity.this).statusDAO();
     }
     @Override
     protected void onStop() {

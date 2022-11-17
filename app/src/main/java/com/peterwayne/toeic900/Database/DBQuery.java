@@ -46,7 +46,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartOne question = doc.toObject(QuestionPartOne.class);
-                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        if(LocalData.getInstance(context).statusDAO().getDonePartOneById(question.getId())==null)
                         {
                             questionList.add(question);
                             if(questionList.size() == NUMBER_QUESTION_TRAINING) break;
@@ -70,7 +70,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartTwo question = doc.toObject(QuestionPartTwo.class);
-                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        if(LocalData.getInstance(context).statusDAO().getDonePartTwoById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -94,7 +94,7 @@ public class DBQuery {
                     {
                         QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
                         questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        if(LocalData.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -117,7 +117,7 @@ public class DBQuery {
                     {
                         QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
                         questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        if(LocalData.getInstance(context).statusDAO().getQuestionDoneById(question.getId()).isEmpty())
+                        if(LocalData.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -179,11 +179,11 @@ public class DBQuery {
         });
     }
     public interface iTestNameCallback {
-        void onCallBack(List<String> testList);
+        void onCallBack(List<String> testNameList);
     }
     public interface iTrainingCallback<T extends Question>
     {
-         void onCallBack(List<T> data);
+         void onCallBack(List<T> questionList);
     }
     public interface iAudioCallback
     {
