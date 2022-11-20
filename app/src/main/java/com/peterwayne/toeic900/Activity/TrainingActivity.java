@@ -292,19 +292,17 @@ public class TrainingActivity extends AppCompatActivity {
             dialog.setContentView(R.layout.dialog_script_part_one);
             setUpWindow(dialog);
             showScriptPartOne(dialog,data);
-            dialog.show();
         } else if (data instanceof QuestionPartTwo) {
             dialog.setContentView(R.layout.dialog_script_part_two);
             setUpWindow(dialog);
             showScriptPartTwo(dialog,data);
-            dialog.show();
         } else if (data instanceof QuestionPartThreeAndFour)
         {
             dialog.setContentView(R.layout.dialog_script_part_three_and_four);
             setUpWindow(dialog);
             showScriptPartThreeAndFour(dialog,data);
-            dialog.show();
         }
+        dialog.show();
     }
 
     private <T extends Question> void showScriptPartThreeAndFour(final Dialog dialog,final T data) {
@@ -508,15 +506,18 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        txt_toolbar_title = findViewById(R.id.txt_toolbar_title);
+        txt_toolbar_description = findViewById(R.id.txt_toolbar_description);
+        toolbar = findViewById(R.id.toolbar);
+
         slider = findViewById(R.id.slider);
+        txt_timestamp = findViewById(R.id.txt_timestamp);
         btn_play = findViewById(R.id.btn_play);
         btn_backward = findViewById(R.id.btn_backward);
         btn_forward = findViewById(R.id.btn_forward);
         btn_bookmark = findViewById(R.id.btn_bookmark);
-        toolbar = findViewById(R.id.toolbar);
-        txt_timestamp = findViewById(R.id.txt_timestamp);
-        txt_toolbar_title = findViewById(R.id.txt_toolbar_title);
-        txt_toolbar_description = findViewById(R.id.txt_toolbar_description);
+
+
         btn_show_script = findViewById(R.id.btn_show_script);
         btn_next_question = findViewById(R.id.btn_next_question);
         btn_prev_question = findViewById(R.id.btn_prev_question);

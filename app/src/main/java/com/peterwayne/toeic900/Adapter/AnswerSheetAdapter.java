@@ -42,6 +42,15 @@ public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.
             holder.txt_answer_key.setText(answer.getKeyChosen());
         }
     }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     @Override
     public int getItemCount() {

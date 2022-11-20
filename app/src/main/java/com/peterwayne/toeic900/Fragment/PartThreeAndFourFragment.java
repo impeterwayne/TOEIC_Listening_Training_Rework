@@ -140,18 +140,6 @@ public class PartThreeAndFourFragment extends Fragment {
             }
         }
     }
-
-    private void clickOpenBottomSheetDialog() {
-        View viewDialog = getLayoutInflater().inflate(R.layout.bottomsheet_script,null);
-        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
-        dialog.setContentView(viewDialog);
-        TextView txt_script_dialog = dialog.findViewById(R.id.txt_script_dialog);
-        String txt = data.getScript().replace("\\n","\n");
-        txt_script_dialog.setText(txt);
-        dialog.show();
-    }
-
-
     private void addControls(View view) {
         txt_question1 = view.findViewById(R.id.txt_question1);
         txt_question2 = view.findViewById(R.id.txt_question2);
@@ -185,19 +173,19 @@ public class PartThreeAndFourFragment extends Fragment {
     public void loadDataToView(final View view)
     {
         //data question 1
-        txt_question1.setText(data.getQuestion1());
+        txt_question1.setText(data.getNumber1()+ ". " +data.getQuestion1());
         ((AppCompatButton)view.findViewById(R.id.btn_key1A)).setText(data.getScript_key1A());
         ((AppCompatButton)view.findViewById(R.id.btn_key1B)).setText(data.getScript_key1B());
         ((AppCompatButton)view.findViewById(R.id.btn_key1C)).setText(data.getScript_key1C());
         ((AppCompatButton)view.findViewById(R.id.btn_key1D)).setText(data.getScript_key1D());
         // data question 2
-        txt_question2.setText(data.getQuestion2());
+        txt_question2.setText(data.getNumber2()+ ". " +data.getQuestion2());
         ((AppCompatButton)view.findViewById(R.id.btn_key2A)).setText(data.getScript_key2A());
         ((AppCompatButton)view.findViewById(R.id.btn_key2B)).setText(data.getScript_key2B());
         ((AppCompatButton)view.findViewById(R.id.btn_key2C)).setText(data.getScript_key2C());
         ((AppCompatButton)view.findViewById(R.id.btn_key2D)).setText(data.getScript_key2D());
         // data question 3
-        txt_question3.setText(data.getQuestion3());
+        txt_question3.setText(data.getNumber3()+ ". " +data.getQuestion3());
         ((AppCompatButton)view.findViewById(R.id.btn_key3A)).setText(data.getScript_key3A());
         ((AppCompatButton)view.findViewById(R.id.btn_key3B)).setText(data.getScript_key3B());
         ((AppCompatButton)view.findViewById(R.id.btn_key3C)).setText(data.getScript_key3C());

@@ -21,45 +21,56 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/txt_toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/result"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
-
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/btn_home"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/btn_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/done"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="32dp"
-                    android:src="@drawable/ic_practice" />
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-    <FrameLayout
-        android:layout_width="250dp"
-        android:layout_height="250dp">
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart_result"
-            android:layout_width="250dp"
-            android:layout_height="250dp"/>
-        <com.robinhood.ticker.TickerView
-            android:id="@+id/ticker"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="45sp"
-            app:ticker_animationDuration="1500"
-            android:layout_gravity="center"/>
-    </FrameLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_result"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="250dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="12dp">
+        <FrameLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal">
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart_result"
+                android:layout_width="250dp"
+                android:layout_height="250dp"/>
+            <com.robinhood.ticker.TickerView
+                android:id="@+id/ticker"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="45sp"
+                app:ticker_animationDuration="1500"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_answer_sheet_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"/>
 </LinearLayout>

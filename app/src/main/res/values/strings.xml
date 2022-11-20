@@ -36,4 +36,6 @@
     <string name="logout">Log out</string>
     <string name="view_answer">View Script</string>
     <string name="target">Target</string>
+    <string name="finish">Finish</string>
+    <string name="done">DONE</string>
 </resources>

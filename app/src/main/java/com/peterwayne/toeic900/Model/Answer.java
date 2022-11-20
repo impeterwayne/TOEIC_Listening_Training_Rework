@@ -1,13 +1,16 @@
 package com.peterwayne.toeic900.Model;
 
-public class Answer{
+import java.io.Serializable;
+
+public class Answer implements Serializable {
     private long number;
     private String key;
     private String keyChosen;
 
-    public Answer(final long number)
+    public Answer(final long number, final String key)
     {
         this.number = number;
+        this.key = key;
     }
 
     public long getNumber() {

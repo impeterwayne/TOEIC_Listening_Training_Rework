@@ -1,6 +1,8 @@
 package com.peterwayne.toeic900.Model;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private  String id;
     private  String audio_url;
     private long number;

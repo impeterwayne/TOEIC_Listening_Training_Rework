@@ -56,8 +56,12 @@
         <entry key="app/src/main/res/layout/activity_training.xml" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/bottomsheet_audio_training.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/bottomsheet_script.xml" value="0.3697916666666667" />
+        <entry key="app/src/main/res/layout/diaglog_result_part_one.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_answer.xml" value="0.30183839247541683" />
         <entry key="app/src/main/res/layout/dialog_confirm_realtest.xml" value="0.28603807796917496" />
+        <entry key="app/src/main/res/layout/dialog_result_part_three.xml" value="0.30183839247541683" />
+        <entry key="app/src/main/res/layout/dialog_result_part_three_and_four.xml" value="0.14641885766092474" />
+        <entry key="app/src/main/res/layout/dialog_result_part_two.xml" value="0.30183839247541683" />
         <entry key="app/src/main/res/layout/dialog_script_part_one.xml" value="0.30183839247541683" />
         <entry key="app/src/main/res/layout/dialog_script_part_three_and_four.xml" value="0.17528858486532706" />
         <entry key="app/src/main/res/layout/dialog_script_part_two.xml" value="0.17528858486532706" />

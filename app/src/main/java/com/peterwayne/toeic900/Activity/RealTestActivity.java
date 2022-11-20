@@ -1,7 +1,6 @@
 package com.peterwayne.toeic900.Activity;
 
 import static com.peterwayne.toeic900.Utils.Utils.getTimeString;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -10,10 +9,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
@@ -30,11 +28,13 @@ import com.peterwayne.toeic900.Adapter.RealTestAdapter;
 import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.Model.Answer;
 import com.peterwayne.toeic900.Model.Question;
+import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
+import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
 import com.peterwayne.toeic900.Utils.Utils;
-
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -55,6 +55,8 @@ public class RealTestActivity extends AppCompatActivity {
     private List<Answer> answerList;
     private List<Question> questionData;
     private AnswerSheetAdapter answerSheetAdapter;
+    private AppCompatButton btn_submit;
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +76,10 @@ public class RealTestActivity extends AppCompatActivity {
                     }
                 });
                 questionData = questionList;
+                intent.putExtra("questionList", (Serializable) questionList);
                 RealTestAdapter testAdapter = new RealTestAdapter(RealTestActivity.this, questionList);
                 testPager.setAdapter(testAdapter);
-                generateAnswerNavigation(questionList);
+                initAnswerList(questionList);
                 GridLayoutManager layoutManager = new GridLayoutManager(RealTestActivity.this,3,
                         LinearLayoutManager.VERTICAL,false);
                 answerSheetAdapter = new AnswerSheetAdapter(RealTestActivity.this, answerList);
@@ -86,20 +89,25 @@ public class RealTestActivity extends AppCompatActivity {
         });
     }
 
-    private void generateAnswerNavigation(List<Question> questionList) {
+    private void initAnswerList(final List<Question> questionList) {
         answerList = new ArrayList<>();
         for(final Question question : questionList)
         {
-            Answer answer = new Answer(question.getNumber());
-            answerList.add(answer);
-            if(question instanceof QuestionPartThreeAndFour)
+            if(question instanceof QuestionPartOne)
             {
-                answerList.add(new Answer(((QuestionPartThreeAndFour) question).getNumber2()));
-                answerList.add(new Answer(((QuestionPartThreeAndFour) question).getNumber3()));
+                answerList.add(new Answer(question.getNumber(),((QuestionPartOne) question).getKey()));
+            }else if(question instanceof QuestionPartTwo)
+            {
+                answerList.add(new Answer(question.getNumber(),((QuestionPartTwo) question).getKey()));
+            }
+            else if(question instanceof QuestionPartThreeAndFour)
+            {
+                answerList.add(new Answer(((QuestionPartThreeAndFour) question).getNumber1(), ((QuestionPartThreeAndFour) question).getKey1()));
+                answerList.add(new Answer(((QuestionPartThreeAndFour) question).getNumber2(), ((QuestionPartThreeAndFour) question).getKey2()));
+                answerList.add(new Answer(((QuestionPartThreeAndFour) question).getNumber3(), ((QuestionPartThreeAndFour) question).getKey1()));
             }
         }
     }
-
     private void addEvents() {
         testPager.setOffscreenPageLimit(2);
         btn_prev_question.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +170,20 @@ public class RealTestActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mediaPlayer!=null)
+                {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                }
+                handler.removeCallbacks(runnable);
+                intent.putExtra("answerList", (Serializable) answerList);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
@@ -178,8 +200,10 @@ public class RealTestActivity extends AppCompatActivity {
         btn_next_question = findViewById(R.id.btn_next_question);
         slider = findViewById(R.id.slider);
         headerLayout = nav_questions.getHeaderView(0);
+        btn_submit = headerLayout.findViewById(R.id.btn_submit);
         rcv_test_answer = headerLayout.findViewById(R.id.rcv_test_answer);
         handler = new Handler();
+        intent = new Intent(RealTestActivity.this,ResultActivity.class);
 
     }
     private void updateToolbarTitle()
@@ -236,7 +260,6 @@ public class RealTestActivity extends AppCompatActivity {
                 {
                     ex.printStackTrace();
                 }
-
             };
             handler.postDelayed(runnable, 200);
         }catch (Exception e) {
