@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 import com.peterwayne.toeic900.Activity.RealTestActivity;
-import com.peterwayne.toeic900.LocalData.DataLocalManager;
 import com.peterwayne.toeic900.Model.RealTest;
 import com.peterwayne.toeic900.R;
 import java.util.List;
@@ -82,7 +81,6 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
                     dialog.dismiss();
                     Intent intent = new Intent(context, RealTestActivity.class);
                     intent.putExtra("testName", testList.get(getAdapterPosition()).getName().trim());
-                    DataLocalManager.addTestName(txt_testName.getText().toString().trim());
                     context.startActivity(intent);
                 }
             });

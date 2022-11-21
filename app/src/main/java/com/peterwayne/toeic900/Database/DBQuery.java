@@ -1,22 +1,23 @@
 package com.peterwayne.toeic900.Database;
 
 import static com.peterwayne.toeic900.Utils.Utils.NUMBER_QUESTION_TRAINING;
+import static com.peterwayne.toeic900.Utils.Utils.getDayOfWeek;
+import static com.peterwayne.toeic900.Utils.Utils.getFirebaseUser;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
-import com.peterwayne.toeic900.Model.RealTest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DBQuery {
@@ -48,7 +49,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartOne question = doc.toObject(QuestionPartOne.class);
-                        if(LocalData.getInstance(context).statusDAO().getDonePartOneById(question.getId())==null)
+                        if(RoomDbManager.getInstance(context).statusDAO().getDonePartOneById(question.getId())==null)
                         {
                             questionList.add(question);
                             if(questionList.size() == NUMBER_QUESTION_TRAINING) break;
@@ -72,7 +73,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartTwo question = doc.toObject(QuestionPartTwo.class);
-                        if(LocalData.getInstance(context).statusDAO().getDonePartTwoById(question.getId())==null)
+                        if(RoomDbManager.getInstance(context).statusDAO().getDonePartTwoById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -95,8 +96,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
-                        questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        if(LocalData.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
+                        if(RoomDbManager.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -118,8 +118,7 @@ public class DBQuery {
                     for(DocumentSnapshot doc: queryDocumentSnapshots)
                     {
                         QuestionPartThreeAndFour question = doc.toObject(QuestionPartThreeAndFour.class);
-                        questionList.add(doc.toObject(QuestionPartThreeAndFour.class));
-                        if(LocalData.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
+                        if(RoomDbManager.getInstance(context).statusDAO().getDonePartThreeAndFourById(question.getId())==null)
                         {
                             questionList.add(question);
                         }
@@ -180,6 +179,42 @@ public class DBQuery {
             }
         });
     }
+    public static void loadStatisticData(iStatisticsCallback callback)
+    {
+
+        db.collection("User").document(getFirebaseUser())
+                .collection("Statistic").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Integer> data = new ArrayList<>();
+                for(DocumentSnapshot doc : queryDocumentSnapshots)
+                {
+                    if(doc.get("total",Integer.class)==null)
+                    {
+                        data.add(0);
+                    }else
+                    {
+                        data.add(doc.get("total",Integer.class));
+                    }
+                }
+                data = sortStatisticDataSet(data);
+                callback.onCallBack(data);
+            }
+        });
+    }
+    private static List<Integer> sortStatisticDataSet(final List<Integer> data)
+    {
+        int step = data.size() - getDayOfWeek();
+        Integer[] arr = new Integer[data.size()];
+        for (int i = 0; i < arr.length; i++)
+        {
+            int temp = i-step;
+            if(temp <0) temp = temp+7;
+            arr[i] = data.get((temp)%data.size());
+        }
+        return Arrays.asList(arr);
+    }
+
     public interface iTestNameCallback {
         void onCallBack(List<String> testNameList);
     }
@@ -194,5 +229,9 @@ public class DBQuery {
     public interface iTestQuestionCallback
     {
         void onCallBack(List<Question> questionList);
+    }
+    public interface iStatisticsCallback
+    {
+        void onCallBack(List<Integer> dataStatistic);
     }
 }

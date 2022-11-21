@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartTwoStatus;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
@@ -57,7 +57,7 @@ public class PartTwoFragment extends Fragment {
         doneQuestion.setScript_keyB(data.getScript_keyB());
         doneQuestion.setScript_keyC(data.getScript_keyC());
         doneQuestion.setDone(true);
-        LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
+        RoomDbManager.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
     }
     private void addControls(View view) {
         txt_script_part_two = view.findViewById(R.id.txt_script_part_two);

@@ -37,7 +37,7 @@ import com.peterwayne.toeic900.Adapter.TrainingPartOneAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartThreeAndFourAdapter;
 import com.peterwayne.toeic900.Adapter.TrainingPartTwoAdapter;
 import com.peterwayne.toeic900.Database.DBQuery;
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartOneStatus;
 import com.peterwayne.toeic900.LocalData.QuestionPartThreeAndFourStatus;
 import com.peterwayne.toeic900.LocalData.QuestionPartTwoStatus;
@@ -52,8 +52,6 @@ import com.peterwayne.toeic900.Utils.Utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TrainingActivity extends AppCompatActivity {
     private Slider slider;
@@ -525,7 +523,7 @@ public class TrainingActivity extends AppCompatActivity {
         questionPager = findViewById(R.id.viewpager_training);
         initPositionButtons();
         handler = new Handler();
-        localDataRef = LocalData.getInstance(TrainingActivity.this).statusDAO();
+        localDataRef = RoomDbManager.getInstance(TrainingActivity.this).statusDAO();
     }
     @Override
     protected void onStop() {

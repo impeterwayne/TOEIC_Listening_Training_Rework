@@ -5,9 +5,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Utils {
-    public static final int RESULT_VIEW_TYPE = 1;
-    public static final int TEST_VIEW_TYPE = 2;
     public static final int ID_REVIEW_TRAINING = 0;
     public static final int ID_PART_ONE_TRAINING = 1;
     public static final int ID_PART_TWO_TRAINING = 2;
@@ -30,5 +31,11 @@ public class Utils {
                 .append(":")
                 .append(String.format("%02d", seconds));
         return buf.toString();
+    }
+    public static int getDayOfWeek() {
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_WEEK);
     }
 }

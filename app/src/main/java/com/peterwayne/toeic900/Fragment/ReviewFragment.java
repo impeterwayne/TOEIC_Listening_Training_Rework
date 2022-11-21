@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.peterwayne.toeic900.Activity.MainActivity;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.R;
 
 public class ReviewFragment extends Fragment {
@@ -54,9 +54,9 @@ public class ReviewFragment extends Fragment {
     }
 
     private void updateNumberToReview() {
-        int numberQuestionToReview = LocalData.getInstance(getActivity()).statusDAO().getReviewPartOne().size()+
-        LocalData.getInstance(getActivity()).statusDAO().getReviewPartTwo().size()+
-        LocalData.getInstance(getActivity()).statusDAO().getReviewPartThreeAndFour().size();
+        int numberQuestionToReview = RoomDbManager.getInstance(getActivity()).statusDAO().getReviewPartOne().size()+
+        RoomDbManager.getInstance(getActivity()).statusDAO().getReviewPartTwo().size()+
+        RoomDbManager.getInstance(getActivity()).statusDAO().getReviewPartThreeAndFour().size();
         String notification = "";
         if(numberQuestionToReview <= 0)
         {

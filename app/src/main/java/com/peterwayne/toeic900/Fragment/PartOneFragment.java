@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartOneStatus;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.R;
@@ -62,7 +62,7 @@ public class PartOneFragment extends Fragment {
             doneQuestion.setScript_keyC(data.getScript_keyC());
             doneQuestion.setScript_keyD(data.getScript_keyD());
             doneQuestion.setDone(true);
-            LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
+            RoomDbManager.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
         }
     }
 

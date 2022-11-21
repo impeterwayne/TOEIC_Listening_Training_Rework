@@ -12,11 +12,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.peterwayne.toeic900.Activity.TrainingActivity;
-import com.peterwayne.toeic900.LocalData.LocalData;
+import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartThreeAndFourStatus;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.R;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -122,7 +121,7 @@ public class PartThreeAndFourFragment extends Fragment {
 
 
         doneQuestion.setDone(true);
-        LocalData.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
+        RoomDbManager.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
     }
     protected void updateUI(AppCompatButton key, HashMap<AppCompatButton, String> keyMap, String correctKey) {
         if(Objects.equals(keyMap.get(key), correctKey))

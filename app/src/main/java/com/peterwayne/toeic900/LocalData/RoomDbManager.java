@@ -10,14 +10,14 @@ import androidx.room.RoomDatabase;
                     QuestionPartTwoStatus.class,
                     QuestionPartThreeAndFourStatus.class},
                     version = 1)
-public abstract class LocalData extends RoomDatabase {
+public abstract class RoomDbManager extends RoomDatabase {
 
     private static final String DATABASE_NAME = "status.db";
-    private static LocalData instance;
-    public static synchronized LocalData getInstance(Context context) {
+    private static RoomDbManager instance;
+    public static synchronized RoomDbManager getInstance(Context context) {
         if(instance == null)
         {
-            instance = Room.databaseBuilder(context.getApplicationContext(), LocalData.class, DATABASE_NAME)
+            instance = Room.databaseBuilder(context.getApplicationContext(), RoomDbManager.class, DATABASE_NAME)
                     .allowMainThreadQueries().build();
         }
         return instance;
