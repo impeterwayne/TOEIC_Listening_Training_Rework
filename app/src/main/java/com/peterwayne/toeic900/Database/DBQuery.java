@@ -259,6 +259,24 @@ public class DBQuery {
             }
         });
     }
+
+    public static void updateTotalPractice() {
+        DocumentReference ref = db.collection("User").document(getFirebaseUser());
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.get("practice")==null)
+                {
+                    ref.set(new HashMap<String,Integer>().put("practice",1));
+                }else
+                {
+                    Integer increament = documentSnapshot.get("practice", Integer.class)+1;
+                    ref.update("practice", increament);
+                }
+            }
+        });
+    }
+
     public interface iTestNameCallback {
         void onCallBack(List<String> testNameList);
     }

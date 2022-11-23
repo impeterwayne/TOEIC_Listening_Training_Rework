@@ -42,6 +42,7 @@ public class PartOneFragment extends Fragment {
                     processAnswer(key);
                     addDoneQuestion();
                     DBQuery.updatePracticeStatistic();
+                    DBQuery.updateTotalPractice();
                 }
             });
         }

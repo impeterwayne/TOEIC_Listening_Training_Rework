@@ -76,11 +76,45 @@ public class ProfileFragment extends Fragment {
         DBQuery.db.collection("User").document(Utils.getFirebaseUser()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                txt_numPractice.setText(documentSnapshot.get("practice") + "");
-                txt_numTests.setText(documentSnapshot.get("test") + "");
+                loadPractice(documentSnapshot);
+                loadTests(documentSnapshot);
+                loadTarget(documentSnapshot);
                 txt_target.setText(documentSnapshot.get("target") + "");
             }
         });
+    }
+
+    private void loadTarget(DocumentSnapshot documentSnapshot) {
+        if(documentSnapshot.get("target")==null)
+        {
+            txt_target.setText("0");
+        }
+        else
+        {
+            Integer target = documentSnapshot.get("target",Integer.class);
+            txt_target.setText(target.toString());
+        }
+    }
+    private void loadTests(DocumentSnapshot documentSnapshot) {
+        if(documentSnapshot.get("tests")==null)
+        {
+            txt_numTests.setText("0");
+        }else
+        {
+            Integer num_solved_tests = documentSnapshot.get("tests", Integer.class);
+            txt_numTests.setText(num_solved_tests.toString());
+        }
+    }
+
+    private void loadPractice(final DocumentSnapshot documentSnapshot) {
+        if(documentSnapshot.get("practice")==null)
+        {
+            txt_numPractice.setText("0");
+        }else
+        {
+            Integer num_solved_questions = documentSnapshot.get("practice", Integer.class);
+            txt_numPractice.setText(num_solved_questions.toString());
+        }
     }
 
 

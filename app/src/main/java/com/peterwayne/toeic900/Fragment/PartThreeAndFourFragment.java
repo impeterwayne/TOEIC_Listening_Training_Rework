@@ -82,6 +82,7 @@ public class PartThreeAndFourFragment extends Fragment {
         {
             addDoneQuestion();
             DBQuery.updatePracticeStatistic();
+            DBQuery.updateTotalPractice();
             ((TrainingActivity)getActivity()).getBtnShowScript().setVisibility(VISIBLE);
         }
     }
