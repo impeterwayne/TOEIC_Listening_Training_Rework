@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.peterwayne.toeic900.Activity.TrainingActivity;
+import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartThreeAndFourStatus;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
@@ -25,11 +26,11 @@ public class PartThreeAndFourFragment extends Fragment {
     protected HashMap<AppCompatButton,String> keyButtonsMap1, keyButtonsMap2, keyButtonsMap3;
     protected TextView txt_question1, txt_question2, txt_question3;
     protected QuestionPartThreeAndFour data;
-    protected int countAnsweredQuestions;
+    protected int countSolvedQuestions;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        countAnsweredQuestions =0;
+        countSolvedQuestions =0;
         View view =  inflater.inflate(R.layout.fragment_part_three_and_four, container, false);
         addControls(view);
         addEvents();
@@ -76,10 +77,11 @@ public class PartThreeAndFourFragment extends Fragment {
         {
             disableKey.setClickable(false);
         }
-        countAnsweredQuestions++;
-        if(countAnsweredQuestions==3)
+        countSolvedQuestions++;
+        if(countSolvedQuestions ==3)
         {
             addDoneQuestion();
+            DBQuery.updatePracticeStatistic();
             ((TrainingActivity)getActivity()).getBtnShowScript().setVisibility(VISIBLE);
         }
     }

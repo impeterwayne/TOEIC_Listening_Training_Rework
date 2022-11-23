@@ -27,6 +27,7 @@
                     android:text="@string/profile"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
+
                 <ImageView
                     android:id="@+id/btn_setting"
                     android:layout_width="30dp"

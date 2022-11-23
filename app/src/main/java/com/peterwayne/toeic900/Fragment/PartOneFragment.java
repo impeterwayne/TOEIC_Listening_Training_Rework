@@ -11,13 +11,13 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.peterwayne.toeic900.Activity.TrainingActivity;
+import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartOneStatus;
 import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.R;
 import java.util.HashMap;
 import java.util.Objects;
-
 
 public class PartOneFragment extends Fragment {
     protected ImageView img_part_one;
@@ -34,20 +34,18 @@ public class PartOneFragment extends Fragment {
         addEvents();
         return view;
     }
-
     private void addEvents() {
-        for (AppCompatButton key : keyButtonsMap.keySet()) {
+        for (final AppCompatButton key : keyButtonsMap.keySet()) {
             key.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     processAnswer(key);
                     addDoneQuestion();
+                    DBQuery.updatePracticeStatistic();
                 }
             });
         }
-
     }
-
     private void addDoneQuestion() {
         if(data!=null)
         {
@@ -65,7 +63,6 @@ public class PartOneFragment extends Fragment {
             RoomDbManager.getInstance(getContext()).statusDAO().addDoneQuestion(doneQuestion);
         }
     }
-
     private void addControls(View view) {
         img_part_one = view.findViewById(R.id.img_part_one);
         txt_number = view.findViewById(R.id.txt_number);
@@ -76,7 +73,6 @@ public class PartOneFragment extends Fragment {
         keyButtonsMap.put(view.findViewById(R.id.btn_key1D), "D");
         passDataToView();
     }
-
     protected void passDataToView() {
         Glide.with(PartOneFragment.this).load(data.getImage_url()).centerCrop().into(img_part_one);
     }
@@ -92,7 +88,6 @@ public class PartOneFragment extends Fragment {
         }
         ((TrainingActivity)getActivity()).getBtnShowScript().setVisibility(VISIBLE);
     }
-
     protected void updateUI(AppCompatButton btnKeyClick) {
         if (Objects.equals(keyButtonsMap.get(btnKeyClick), data.getKey())) {
             btnKeyClick.setBackgroundResource(R.drawable.bg_right_answer);

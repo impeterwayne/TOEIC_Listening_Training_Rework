@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.LocalData.RoomDbManager;
 import com.peterwayne.toeic900.LocalData.QuestionPartTwoStatus;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
@@ -42,6 +43,7 @@ public class PartTwoFragment extends Fragment {
                 public void onClick(View view) {
                     processAnswer(key);
                     addDoneQuestion();
+                    DBQuery.updatePracticeStatistic();
                 }
             });
         }

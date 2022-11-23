@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_practice"
+    <item
+        android:id="@+id/nav_practice"
         android:title="@string/practice"
-        android:icon="@drawable/ic_practice"></item>
-    <item android:id="@+id/nav_statistic"
+        android:icon="@drawable/ic_practice" />
+    <item
+        android:id="@+id/nav_statistic"
         android:title="@string/statistic"
-        android:icon="@drawable/ic_statistic"></item>
-    <item android:id="@+id/nav_test"
+        android:icon="@drawable/ic_statistic" />
+    <item
+        android:id="@+id/nav_test"
         android:title="@string/test"
-        android:icon="@drawable/ic_test"></item>
-    <item android:id="@+id/nav_review"
+        android:icon="@drawable/ic_test" />
+    <item
+        android:id="@+id/nav_review"
         android:title="@string/review"
-        android:icon="@drawable/ic_review"></item>
-    <item android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_review" />
+    <item
+        android:id="@+id/nav_profile"
         android:title="@string/profile"
-        android:icon="@drawable/ic_account"></item>
+        android:icon="@drawable/ic_account" />
 </menu>

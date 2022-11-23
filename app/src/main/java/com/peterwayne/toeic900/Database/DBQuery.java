@@ -1,12 +1,15 @@
 package com.peterwayne.toeic900.Database;
 
 import static com.peterwayne.toeic900.Utils.Utils.NUMBER_QUESTION_TRAINING;
-import static com.peterwayne.toeic900.Utils.Utils.getDayOfWeek;
+import static com.peterwayne.toeic900.Utils.Utils.getCurrentDate;
+import static com.peterwayne.toeic900.Utils.Utils.getCurrentDayOfWeek;
 import static com.peterwayne.toeic900.Utils.Utils.getFirebaseUser;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -16,8 +19,12 @@ import com.peterwayne.toeic900.Model.QuestionPartOne;
 import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class DBQuery {
@@ -181,7 +188,6 @@ public class DBQuery {
     }
     public static void loadStatisticData(iStatisticsCallback callback)
     {
-
         db.collection("User").document(getFirebaseUser())
                 .collection("Statistic").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -189,22 +195,41 @@ public class DBQuery {
                 List<Integer> data = new ArrayList<>();
                 for(DocumentSnapshot doc : queryDocumentSnapshots)
                 {
-                    if(doc.get("total",Integer.class)==null)
+                    String dateToQuery = findDateToQuery(Integer.parseInt(doc.getId()));
+                    Log.d("date", dateToQuery);
+                    if(doc.contains(dateToQuery))
                     {
-                        data.add(0);
+                        data.add(doc.get(dateToQuery,Integer.class));
                     }else
                     {
-                        data.add(doc.get("total",Integer.class));
+                        data.add(0);
                     }
                 }
                 data = sortStatisticDataSet(data);
                 callback.onCallBack(data);
             }
+
+            private String findDateToQuery(final int dayOfWeek) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                Date currentDate = new Date();
+                Calendar c = Calendar.getInstance();
+                c.setTime(currentDate);
+                int distanceToPresent;
+                if(getCurrentDayOfWeek()>=dayOfWeek)
+                {
+                    distanceToPresent = getCurrentDayOfWeek()-dayOfWeek;
+                }else
+                {
+                    distanceToPresent = 7-dayOfWeek + getCurrentDayOfWeek();
+                }
+                c.add(Calendar.DATE, -distanceToPresent);
+                return dateFormat.format(c.getTime());
+            }
         });
     }
     private static List<Integer> sortStatisticDataSet(final List<Integer> data)
     {
-        int step = data.size() - getDayOfWeek();
+        int step = data.size() - getCurrentDayOfWeek();
         Integer[] arr = new Integer[data.size()];
         for (int i = 0; i < arr.length; i++)
         {
@@ -214,7 +239,26 @@ public class DBQuery {
         }
         return Arrays.asList(arr);
     }
-
+    public static void updatePracticeStatistic()
+    {
+        DocumentReference ref = db.collection("User").document(getFirebaseUser())
+                .collection("Statistic").document(String.valueOf(getCurrentDayOfWeek()));
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.contains(getCurrentDate()))
+                {
+                    Integer newData = documentSnapshot.get(getCurrentDate(),Integer.class)+1;
+                    ref.update(getCurrentDate(),newData);
+                }else
+                {
+                    HashMap<String, Integer> value = new HashMap<String, Integer>();
+                    value.put(getCurrentDate(), 1);
+                    ref.set(value);
+                }
+            }
+        });
+    }
     public interface iTestNameCallback {
         void onCallBack(List<String> testNameList);
     }

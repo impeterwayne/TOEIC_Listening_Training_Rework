@@ -1,20 +1,15 @@
 package com.peterwayne.toeic900.Fragment;
 
 
-import static com.peterwayne.toeic900.Utils.Utils.getDayOfWeek;
-
+import static com.peterwayne.toeic900.Utils.Utils.getCurrentDayOfWeek;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
-
-import com.github.mikephil.charting.components.Legend;
-import com.peterwayne.toeic900.Database.DBQuery;
-import com.peterwayne.toeic900.R;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.IMarker;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -22,12 +17,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.peterwayne.toeic900.Utils.Utils;
-
+import com.peterwayne.toeic900.Database.DBQuery;
+import com.peterwayne.toeic900.R;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class StatisticFragment extends Fragment {
@@ -53,18 +45,11 @@ public class StatisticFragment extends Fragment {
 //            }
 //        });
         initDayOfWeekArr();
-        DBQuery.loadStatisticData(new DBQuery.iStatisticsCallback() {
-            @Override
-            public void onCallBack(List<Integer> dataStatistic) {
-                    setUpTheChart(dataStatistic);
-            }
-        });
 
     }
-
     private void initDayOfWeekArr() {
         dayOfWeekArr = new String[7];
-        int step = 7 - getDayOfWeek();
+        int step = 7 - getCurrentDayOfWeek();
         String[] week = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"};
         for(int i = 0; i<7; i++)
         {
@@ -74,7 +59,6 @@ public class StatisticFragment extends Fragment {
                 temp = temp+7;
             }
             dayOfWeekArr[i] = week[temp];
-
         }
     }
 
@@ -100,8 +84,6 @@ public class StatisticFragment extends Fragment {
         yAxisLeft.setAxisLineColor(Color.TRANSPARENT);
         yAxisLeft.setAxisMaximum(18);
         yAxisLeft.setAxisMinimum(-2);
-
-
 
         xAxis.setGranularityEnabled(true);
         xAxis.setGranularity(1f);
@@ -152,4 +134,14 @@ public class StatisticFragment extends Fragment {
         return data;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        DBQuery.loadStatisticData(new DBQuery.iStatisticsCallback() {
+            @Override
+            public void onCallBack(List<Integer> dataStatistic) {
+                setUpTheChart(dataStatistic);
+            }
+        });
+    }
 }

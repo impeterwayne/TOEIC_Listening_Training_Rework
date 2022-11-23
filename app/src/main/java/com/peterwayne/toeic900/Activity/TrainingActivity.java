@@ -7,7 +7,6 @@ import static com.peterwayne.toeic900.Utils.Utils.ID_PART_TWO_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.ID_REVIEW_TRAINING;
 import static com.peterwayne.toeic900.Utils.Utils.PART_ID;
 import static com.peterwayne.toeic900.Utils.Utils.getTimeString;
-
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,13 +21,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
 import com.peterwayne.toeic900.Adapter.CategoryAdapter;
@@ -48,7 +45,6 @@ import com.peterwayne.toeic900.Model.QuestionPartThreeAndFour;
 import com.peterwayne.toeic900.Model.QuestionPartTwo;
 import com.peterwayne.toeic900.R;
 import com.peterwayne.toeic900.Utils.Utils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -507,15 +503,12 @@ public class TrainingActivity extends AppCompatActivity {
         txt_toolbar_title = findViewById(R.id.txt_toolbar_title);
         txt_toolbar_description = findViewById(R.id.txt_toolbar_description);
         toolbar = findViewById(R.id.toolbar);
-
         slider = findViewById(R.id.slider);
         txt_timestamp = findViewById(R.id.txt_timestamp);
         btn_play = findViewById(R.id.btn_play);
         btn_backward = findViewById(R.id.btn_backward);
         btn_forward = findViewById(R.id.btn_forward);
         btn_bookmark = findViewById(R.id.btn_bookmark);
-
-
         btn_show_script = findViewById(R.id.btn_show_script);
         btn_next_question = findViewById(R.id.btn_next_question);
         btn_prev_question = findViewById(R.id.btn_prev_question);

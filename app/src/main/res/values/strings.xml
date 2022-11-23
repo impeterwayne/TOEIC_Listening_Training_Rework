@@ -38,4 +38,5 @@
     <string name="target">Target</string>
     <string name="finish">Finish</string>
     <string name="done">DONE</string>
+    <string name="setTarget">Set target</string>
 </resources>

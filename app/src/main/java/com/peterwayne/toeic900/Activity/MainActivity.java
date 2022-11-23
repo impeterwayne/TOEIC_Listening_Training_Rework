@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.peterwayne.toeic900.Adapter.MainViewPagerAdapter;
+import com.peterwayne.toeic900.Fragment.StatisticFragment;
 import com.peterwayne.toeic900.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        viewPager.setOffscreenPageLimit(3);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

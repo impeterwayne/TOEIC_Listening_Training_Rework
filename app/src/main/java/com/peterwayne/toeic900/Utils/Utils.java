@@ -1,10 +1,10 @@
 package com.peterwayne.toeic900.Utils;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -32,10 +32,16 @@ public class Utils {
                 .append(String.format("%02d", seconds));
         return buf.toString();
     }
-    public static int getDayOfWeek() {
+    public static int getCurrentDayOfWeek() {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal.get(Calendar.DAY_OF_WEEK);
+    }
+    public static String getCurrentDate()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(new Date());
+
     }
 }
