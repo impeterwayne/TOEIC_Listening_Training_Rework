@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.peterwayne.toeic900.Adapter.AnswerSheetResultAdapter;
+import com.peterwayne.toeic900.Database.DBQuery;
 import com.peterwayne.toeic900.Model.Answer;
 import com.peterwayne.toeic900.Model.Question;
 import com.peterwayne.toeic900.R;
@@ -35,7 +36,6 @@ public class ResultActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView rcv_answer_sheet_result;
     private AnswerSheetResultAdapter answerSheetResultAdapter;
-    private AppCompatButton btn_finish;
     private TextView btn_done;
     private long numCorrect,numIncorrect,numInComplete,score;
     private final int[] colorClassArray = new int[]{Color.RED, Color.GREEN, Color.GRAY};
@@ -50,6 +50,7 @@ public class ResultActivity extends AppCompatActivity {
         drawChart();
         initAnswerSheet();
         addEvents();
+        DBQuery.updateTestStatistics();
     }
 
     private void initAnswerSheet() {

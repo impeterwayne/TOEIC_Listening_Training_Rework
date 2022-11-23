@@ -66,7 +66,7 @@ public class TrainingActivity extends AppCompatActivity {
     private final int[] positionArr = { R.id.btn_question_one, R.id.btn_question_two, R.id.btn_question_three,
                                         R.id.btn_question_four,R.id.btn_question_five};
     private ImageView[] positionButtons;
-    private static StatusDAO localDataRef;
+    private static StatusDAO roomRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,12 +134,12 @@ public class TrainingActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int position = questionPager.getCurrentItem();
                     String questionId = data.get(position).getId();
-                    if(localDataRef.getReviewPartOneById(questionId)==null &&
-                            localDataRef.getReviewPartTwoById(questionId)==null &&
-                            localDataRef.getReviewPartThreeAndFourById(questionId)==null) {
-                        if(localDataRef.getDonePartOneById(questionId)!=null ||
-                           localDataRef.getDonePartTwoById(questionId)!=null ||
-                           localDataRef.getDonePartThreeAndFourById(questionId)!=null) {
+                    if(roomRef.getReviewPartOneById(questionId)==null &&
+                            roomRef.getReviewPartTwoById(questionId)==null &&
+                            roomRef.getReviewPartThreeAndFourById(questionId)==null) {
+                        if(roomRef.getDonePartOneById(questionId)!=null ||
+                           roomRef.getDonePartTwoById(questionId)!=null ||
+                           roomRef.getDonePartThreeAndFourById(questionId)!=null) {
                             addQuestionToReview(data.get(position));
                             updateBookmarkUI(data.get(position));
                         }else
@@ -232,45 +232,45 @@ public class TrainingActivity extends AppCompatActivity {
     private void removeQuestionFromReview(final Question question) {
         if(question instanceof QuestionPartOne)
         {
-            QuestionPartOneStatus reviewQuestion = localDataRef.getDonePartOneById(question.getId());
+            QuestionPartOneStatus reviewQuestion = roomRef.getDonePartOneById(question.getId());
             reviewQuestion.setToReview(false);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }else if(question instanceof QuestionPartTwo)
         {
-            QuestionPartTwoStatus reviewQuestion = localDataRef.getDonePartTwoById(question.getId());
+            QuestionPartTwoStatus reviewQuestion = roomRef.getDonePartTwoById(question.getId());
             reviewQuestion.setToReview(false);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }else if(question instanceof QuestionPartThreeAndFour)
         {
-            QuestionPartThreeAndFourStatus reviewQuestion = localDataRef.getDonePartThreeAndFourById(question.getId());
+            QuestionPartThreeAndFourStatus reviewQuestion = roomRef.getDonePartThreeAndFourById(question.getId());
             reviewQuestion.setToReview(false);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }
     }
 
     private void addQuestionToReview(final Question question) {
         if(question instanceof QuestionPartOne)
         {
-            QuestionPartOneStatus reviewQuestion = localDataRef.getDonePartOneById(question.getId());
+            QuestionPartOneStatus reviewQuestion = roomRef.getDonePartOneById(question.getId());
             reviewQuestion.setToReview(true);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }else if(question instanceof QuestionPartTwo)
         {
-            QuestionPartTwoStatus reviewQuestion = localDataRef.getDonePartTwoById(question.getId());
+            QuestionPartTwoStatus reviewQuestion = roomRef.getDonePartTwoById(question.getId());
             reviewQuestion.setToReview(true);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }else if(question instanceof QuestionPartThreeAndFour)
         {
-            QuestionPartThreeAndFourStatus reviewQuestion = localDataRef.getDonePartThreeAndFourById(question.getId());
+            QuestionPartThreeAndFourStatus reviewQuestion = roomRef.getDonePartThreeAndFourById(question.getId());
             reviewQuestion.setToReview(true);
-            localDataRef.addToReview(reviewQuestion);
+            roomRef.addToReview(reviewQuestion);
         }
     }
 
     private <T extends Question>void updateBookmarkUI(final T question) {
-        if(localDataRef.getReviewPartOneById(question.getId())==null &&
-                localDataRef.getReviewPartTwoById(question.getId())==null &&
-                localDataRef.getReviewPartThreeAndFourById(question.getId())==null)
+        if(roomRef.getReviewPartOneById(question.getId())==null &&
+                roomRef.getReviewPartTwoById(question.getId())==null &&
+                roomRef.getReviewPartThreeAndFourById(question.getId())==null)
         {
             btn_bookmark.setImageResource(R.drawable.ic_bookmark);
         }else
@@ -406,9 +406,9 @@ public class TrainingActivity extends AppCompatActivity {
                 break;
             case ID_REVIEW_TRAINING:
                 List<Question> questionList = new ArrayList<>();
-                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartOne()));
-                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartTwo()));
-                       questionList.addAll(new ArrayList<>(localDataRef.getReviewPartThreeAndFour()));
+                       questionList.addAll(new ArrayList<>(roomRef.getReviewPartOne()));
+                       questionList.addAll(new ArrayList<>(roomRef.getReviewPartTwo()));
+                       questionList.addAll(new ArrayList<>(roomRef.getReviewPartThreeAndFour()));
                 RevisionAdapter revisionAdapter = new RevisionAdapter(TrainingActivity.this,questionList);
                 questionPager.setAdapter(revisionAdapter);
                 if(questionList.size()>0)
@@ -516,7 +516,7 @@ public class TrainingActivity extends AppCompatActivity {
         questionPager = findViewById(R.id.viewpager_training);
         initPositionButtons();
         handler = new Handler();
-        localDataRef = RoomDbManager.getInstance(TrainingActivity.this).statusDAO();
+        roomRef = RoomDbManager.getInstance(TrainingActivity.this).statusDAO();
     }
     @Override
     protected void onStop() {

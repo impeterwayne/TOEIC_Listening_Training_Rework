@@ -277,6 +277,23 @@ public class DBQuery {
         });
     }
 
+    public static void updateTestStatistics() {
+        DocumentReference ref = db.collection("User").document(getFirebaseUser());
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.get("test")==null)
+                {
+                    ref.set(new HashMap<String,Integer>().put("test",1));
+                }else
+                {
+                    Integer increament = documentSnapshot.get("test", Integer.class)+1;
+                    ref.update("test", increament);
+                }
+            }
+        });
+    }
+
     public interface iTestNameCallback {
         void onCallBack(List<String> testNameList);
     }
