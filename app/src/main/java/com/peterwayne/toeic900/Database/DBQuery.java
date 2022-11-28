@@ -270,11 +270,17 @@ public class DBQuery {
                     ref.set(new HashMap<String,Integer>().put("practice",1));
                 }else
                 {
-                    Integer increament = documentSnapshot.get("practice", Integer.class)+1;
-                    ref.update("practice", increament);
+                    Integer increment = documentSnapshot.get("practice", Integer.class)+1;
+                    ref.update("practice", increment);
                 }
             }
         });
+    }
+    public static void updateTarget(final int target){
+        DocumentReference ref = db.collection("User").document(getFirebaseUser());
+        HashMap<String, Object> value = new HashMap<>();
+        value.put("target", target);
+        ref.update(value);
     }
 
     public static void updateTestStatistics() {
@@ -287,8 +293,8 @@ public class DBQuery {
                     ref.set(new HashMap<String,Integer>().put("test",1));
                 }else
                 {
-                    Integer increament = documentSnapshot.get("test", Integer.class)+1;
-                    ref.update("test", increament);
+                    Integer increment = documentSnapshot.get("test", Integer.class)+1;
+                    ref.update("test", increment);
                 }
             }
         });

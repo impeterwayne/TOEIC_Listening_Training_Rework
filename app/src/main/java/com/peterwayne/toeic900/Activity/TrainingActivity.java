@@ -405,6 +405,7 @@ public class TrainingActivity extends AppCompatActivity {
                 });
                 break;
             case ID_REVIEW_TRAINING:
+                txt_toolbar_title.setText(R.string.revision);
                 List<Question> questionList = new ArrayList<>();
                        questionList.addAll(new ArrayList<>(roomRef.getReviewPartOne()));
                        questionList.addAll(new ArrayList<>(roomRef.getReviewPartTwo()));
@@ -526,7 +527,6 @@ public class TrainingActivity extends AppCompatActivity {
             mediaPlayer.release();
         }
     }
-
     public AppCompatButton getBtnShowScript() {
         return btn_show_script;
     }

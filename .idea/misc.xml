@@ -66,6 +66,7 @@
         <entry key="app/src/main/res/layout/dialog_script_part_one.xml" value="0.30183839247541683" />
         <entry key="app/src/main/res/layout/dialog_script_part_three_and_four.xml" value="0.17528858486532706" />
         <entry key="app/src/main/res/layout/dialog_script_part_two.xml" value="0.17528858486532706" />
+        <entry key="app/src/main/res/layout/dialog_set_target.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_empty_review.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_part_four.xml" value="0.3697916666666667" />
